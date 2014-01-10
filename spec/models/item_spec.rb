@@ -26,4 +26,11 @@ describe Item do
       expect(build(:item, price_cents: 0.1)).to have(1).errors_on(:price_cents)
     end
   end
+
+  describe "photo" do
+    it "must be a valid url" do
+      expect(build(:item, photo: "not_a_url")).to have(1).errors_on(:photo)
+      expect(build(:item, photo: "http://a-url.com")).to be_valid
+    end
+  end
 end
