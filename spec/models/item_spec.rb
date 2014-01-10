@@ -21,5 +21,9 @@ describe Item do
     it 'must be greater than zero' do
       expect(build(:item, price_cents: -1)).to have(1).errors_on(:price_cents)
     end
+
+    it "must be an integer" do
+      expect(build(:item, price_cents: 0.1)).to have(1).errors_on(:price_cents)
+    end
   end
 end
