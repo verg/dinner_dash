@@ -6,8 +6,15 @@ describe Item do
   end
 
   describe "title" do
-    it "cannot be an empty string"
-    it "must be unique"
+    it "must be present" do
+      expect(Item.new(title: "")).to have(1).errors_on(:title)
+      expect(Item.new).to have(1).errors_on(:title)
+    end
+
+    it "must be unique" do
+      create(:item)
+      expect(build(:item)).to have(1).errors_on(:title)
+    end
   end
 
   describe "price_cents" do
