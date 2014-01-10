@@ -18,6 +18,8 @@ describe Item do
   end
 
   describe "price_cents" do
-    it 'must be greater than zero'
+    it 'must be greater than zero' do
+      expect(build(:item, price_cents: -1)).to have(1).errors_on(:price_cents)
+    end
   end
 end
