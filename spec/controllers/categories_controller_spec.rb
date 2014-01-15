@@ -8,13 +8,13 @@ describe CategoriesController do
       expect(assigns(:category)).to eq category
     end
 
-    it 'assigns the items associated with the category to @items' do
+    it 'assigns the products associated with the category to @products' do
       category = create(:category)
-      in_category = category.items.create(title: "Pizza", price_cents: 150 )
-      not_in_category = Item.create(title: "Not Pizza", price_cents: 150 )
+      in_category = category.products.create(title: "Pizza", price_cents: 150 )
+      not_in_category = Product.create(title: "Not Pizza", price_cents: 150 )
 
       get :show, id: category
-      expect(assigns(:items)).to eq [in_category]
+      expect(assigns(:products)).to eq [in_category]
     end
 
     it "renders the :show template" do

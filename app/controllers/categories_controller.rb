@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   def show
     @category = Category.find category_id
-    @items = @category.items
+    @products = @category.products
   end
 
   private

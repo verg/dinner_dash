@@ -1,5 +1,5 @@
 DinnerDash::Application.routes.draw do
-  root 'items#index'
+  root 'products#index'
   resources :categories, only: [:show]
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

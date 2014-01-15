@@ -1,14 +1,14 @@
 require 'uri'
 
-class Item < ActiveRecord::Base
+class Product < ActiveRecord::Base
   validates :title, presence: true
   validates :title, uniqueness: true
   validate :photo_validator
   validates :price_cents, numericality: { greater_than_or_equal_to: 0,
                                           only_integer: true }
 
-  has_many :category_items
-  has_many :categories, through: :category_items
+  has_many :category_products
+  has_many :categories, through: :category_products
 
   private
 
