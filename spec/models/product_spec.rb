@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Product do
+
+  it { should have_many(:categories) }
+
   it "has a valid factory" do
     expect(FactoryGirl.build(:product)).to be_valid
   end
