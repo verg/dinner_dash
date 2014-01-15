@@ -9,6 +9,9 @@ class Product < ActiveRecord::Base
 
   has_many :category_products
   has_many :categories, through: :category_products
+  has_many :line_items
+
+  monetize :price_cents
 
   private
 
