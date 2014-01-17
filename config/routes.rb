@@ -1,6 +1,8 @@
 DinnerDash::Application.routes.draw do
+  devise_for :users
   root 'products#index'
   resources :categories, only: [:show]
+  resources :line_items, only: [:create]
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
