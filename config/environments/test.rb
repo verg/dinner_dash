@@ -34,4 +34,10 @@ DinnerDash::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.raise = true # raise an error if n+1 query occurs
+  end
 end

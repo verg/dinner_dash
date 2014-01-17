@@ -24,6 +24,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'bullet'
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'capybara'
