@@ -16,8 +16,8 @@ describe Product do
     end
 
     it "must be unique" do
-      create(:product)
-      expect(build(:product)).to have(1).errors_on(:title)
+      create(:product, title: "not_uniq")
+      expect(build(:product, title: "not_uniq")).to have(1).errors_on(:title)
     end
   end
 
