@@ -4,7 +4,7 @@ class LineItem < ActiveRecord::Base
 
   def increment_quantity(by=1)
     original_qty = "CASE WHEN quantity IS NULL THEN 0 ELSE quantity END"
-    self.class.update_all("quantity = quantity + #{by.to_i}", "id = #{id}")
+    self.class.where(id: id).update_all("quantity = #{original_qty} + #{by.to_i}")
     reload
   end
 end

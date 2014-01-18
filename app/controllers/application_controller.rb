@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def current_cart
+    current_or_guest_user.cart || current_or_guest_user.create_cart
+  end
+
   def current_or_guest_user
     if current_user
       destroy_guest_user if session[:guest_user_id]
@@ -26,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def create_guest_user
-    user = User.create
+    user = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@example.com")
     user.save!(validate: false)
     session[:guest_user_id] = user.id
     user
