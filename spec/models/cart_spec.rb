@@ -11,7 +11,7 @@ describe Cart do
   end
 
   it { should have_many(:line_items) }
-  it { should belong_to(:user) }
+  it { should belong_to(:user).dependent(:destroy) }
 
   describe ".add_product" do
     it "adds a line item to the cart for the product" do
