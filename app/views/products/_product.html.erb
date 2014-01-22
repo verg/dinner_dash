@@ -1,1 +1,5 @@
-<li class='product'><%= product.title %></li>
+<li id='<%= product.title.strip.downcase.gsub(" ", "-")  %>' class='product'>
+  <span class='product-title'><%= product.title %></span>
+  <span class='product-price'><%= product.price %></span>
+  <span><%= link_to "Add to Cart", line_items_path(product_id: product.id), method: :post, class: 'add-cart'%></span>
+</li>
