@@ -9,4 +9,10 @@ class Cart < ActiveRecord::Base
   def find_or_create_line_item_by_product_id(product_id)
     line_items.find_or_create_by(product_id: product_id)
   end
+
+  def total_price
+    line_items.includes(:product).reduce(Money.new(0)) { |sum, item|
+      sum + item.total_price
+    }
+  end
 end
