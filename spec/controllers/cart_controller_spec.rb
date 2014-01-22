@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CartsController do
+describe CartController do
   describe "GET #show" do
     it "assigns the user's cart to @cart" do
       cart = @controller.current_cart

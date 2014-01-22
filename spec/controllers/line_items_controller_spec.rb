@@ -21,4 +21,19 @@ describe LineItemsController do
       }.to change(line_item, :quantity).by(1)
     end
   end
+
+  describe "DELETE destroy" do
+    before { @line_item = create(:line_item) }
+
+    it "deletes the line_item" do
+      expect{
+        delete :destroy, id: @line_item
+      }.to change(LineItem, :count).by(-1)
+    end
+
+    it "re-renders the cart" do
+      delete :destroy, id: @line_item
+      expect(response).to redirect_to cart_path
+    end
+  end
 end

@@ -1,4 +1,4 @@
-<%= link_to "Cart", cart_path(@presenter.cart) %>
+<%= link_to "Cart", cart_path(@presenter.cart), id: "cart-link" %>
 
 <ul>
   <%= render @presenter.categories %>

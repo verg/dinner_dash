@@ -20,10 +20,45 @@ feature "Products" do
       expect(page).not_to have_css ".product", text: "Jasmine Tea"
     end
 
-    scenario "Add products to cart"
-    scenario "View cart"
-    scenario "remove product from cart"
-    scenario "Increase the quantity of an product in the cart"
+    scenario "Adding to and browsing cart" do
+      create(:product, title: "Mapo Tofu", price_cents: 899)
+      visit root_path
+
+      2.times { add_css_id_to_cart("#mapo-tofu") }
+      visit_cart
+
+      expect(page).to have_css ".product", text: "Mapo Tofu"
+      expect(page).to have_css ".item-price", text: "$17.98"
+      expect(page).to have_css ".quantity", text: "2"
+      expect(page).to have_css ".total-price", text: "$17.98"
+    end
+
+    scenario "remove product from cart" do
+      create(:product, title: "Mapo Tofu", price_cents: 899)
+      visit root_path
+
+      add_css_id_to_cart("#mapo-tofu")
+      visit_cart
+
+      expect(page).to have_css ".quantity", text: "1"
+      delete_from_cart_by_css_id("#mapo-tofu")
+
+      expect(page).not_to have_css("#mapo-tofu")
+    end
+
+    scenario "Increase the quantity of a product in the cart"
     scenario "Logging in, without clearing the cart"
+  end
+
+  def visit_cart
+    find("#cart-link").click
+  end
+
+  def add_css_id_to_cart(id)
+    find(id).find(".add-cart").click
+  end
+
+  def delete_from_cart_by_css_id(id)
+    find(id).find(".remove-from-cart").click
   end
 end
