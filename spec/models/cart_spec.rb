@@ -33,4 +33,17 @@ describe Cart do
       expect(cart.total_price).to eq Money.new(350+150, "USD")
     end
   end
+
+  describe "#count" do
+    it "returns the number of line_items in the cart" do
+      cart = Cart.create
+      food = create(:product, price_cents: 350)
+      drink = create(:product, price_cents: 150)
+      cart.add_product(food)
+      cart.add_product(drink)
+      cart.add_product(drink)
+
+      expect(cart.count).to eq 3
+    end
+  end
 end

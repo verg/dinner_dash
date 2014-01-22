@@ -15,4 +15,8 @@ class Cart < ActiveRecord::Base
       sum + item.total_price
     }
   end
+
+  def count
+    line_items.pluck(:quantity).reduce(0, :+)
+  end
 end
