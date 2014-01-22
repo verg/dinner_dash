@@ -9,6 +9,11 @@ describe Product do
     expect(FactoryGirl.build(:product)).to be_valid
   end
 
+  it "has availible products" do
+    product = create(:product)
+    expect(Product.available).to include product
+  end
+
   describe "title" do
     it "must be present" do
       expect(Product.new(title: "")).to have(1).errors_on(:title)

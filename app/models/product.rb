@@ -13,6 +13,10 @@ class Product < ActiveRecord::Base
 
   monetize :price_cents
 
+  def self.available
+    all
+  end
+
   private
 
   def photo_validator
