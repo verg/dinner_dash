@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   def index
-    @categories = Category.all
-    @products = Product.all
+    @presenter = ProductsPresenter.new(current_cart)
+    # @categories = Category.all
+    # @products = Product.all
+    # @cart = current_cart
   end
 end
