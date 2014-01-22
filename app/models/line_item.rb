@@ -7,4 +7,8 @@ class LineItem < ActiveRecord::Base
     self.class.where(id: id).update_all("quantity = #{original_qty} + #{by.to_i}")
     reload
   end
+
+  def product_title
+    product.title
+  end
 end
