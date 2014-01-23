@@ -1,5 +1,4 @@
-<%= link_to "View Cart (#{@presenter.cart_size_string}) $#{@presenter.total_price}", 
-     cart_path, class: "cart-link" %>
+<%= render "shared/cart_link" %>
 
 <ul>
   <%= render @presenter.categories %>
