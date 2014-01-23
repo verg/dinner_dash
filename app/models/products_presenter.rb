@@ -1,4 +1,8 @@
+require 'action_view'
+
 class ProductsPresenter
+  include ActionView::Helpers::TextHelper
+
   def self.for(category_id, cart)
     new(category_id, cart)
   end
@@ -13,5 +17,13 @@ class ProductsPresenter
       @categories = Category.all
       @products = Product.available
     end
+  end
+
+  def cart_size_string
+    pluralize(cart.count, 'Item')
+  end
+
+  def total_price
+    cart.total_price
   end
 end
