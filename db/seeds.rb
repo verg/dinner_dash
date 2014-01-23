@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 entrees = Category.create(name: "Entrees")
 drinks = Category.create(name: "Drinks")
-entrees.products.create(title: "Mapo Tofu", price_cents: 899)
-drinks.products.create(title: "Jasmine Tea", price_cents: 150)
+entrees.products.create(title: "Mapo Tofu", price_cents: 899, display_rank: 3)
+drinks.products.create(title: "Jasmine Tea", price_cents: 150, display_rank: 6)

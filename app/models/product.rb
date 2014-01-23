@@ -14,7 +14,7 @@ class Product < ActiveRecord::Base
   monetize :price_cents
 
   def self.available
-    all
+    all.order(:display_rank)
   end
 
   private
