@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 describe Cart do
-  before(:each) do
-    Bullet.start_request if Bullet.enable?
-  end
-
-  after(:each) do
-    Bullet.perform_out_of_channel_notifications if Bullet.enable? && Bullet.notification?
-    Bullet.end_request if Bullet.enable?
-  end
 
   it { should have_many(:line_items) }
   it { should belong_to(:user).dependent(:destroy) }
