@@ -56,7 +56,7 @@ feature "Products" do
   end
 
   def add_css_id_to_cart(id)
-    find(id).find(".add-cart").click
+    find(id).find(".add-cart-button").click
   end
 
   def delete_from_cart_by_css_id(id)

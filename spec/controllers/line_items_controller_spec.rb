@@ -6,7 +6,7 @@ describe LineItemsController do
 
     it "creates a new line item if none exists for that user session & product" do
       expect{
-        post :create, product: attributes_for(:product)
+        post :create, product_id: 1, line_item: attributes_for(:line_item)
       }.to change(LineItem, :count).by(1)
     end
 
@@ -17,7 +17,7 @@ describe LineItemsController do
       @controller.stub(:current_cart).and_return(cart)
 
       expect{
-        post :create, product_id: 1
+        post :create, product_id: 1, line_item: attributes_for(:line_item)
       }.to change(line_item, :quantity).by(1)
     end
   end

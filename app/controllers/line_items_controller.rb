@@ -1,7 +1,7 @@
 class LineItemsController < ApplicationController
   def create
     line_item = current_cart.find_or_create_line_item_by_product_id(product_id)
-    line_item.increment_quantity
+    line_item.increment_quantity(quantity_param)
 
     begin
       redirect_to :back
@@ -23,5 +23,9 @@ class LineItemsController < ApplicationController
 
   def line_item_id
     params[:id]
+  end
+
+  def quantity_param
+    params[:line_item][:quantity]
   end
 end

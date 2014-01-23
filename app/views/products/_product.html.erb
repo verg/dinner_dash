@@ -1,5 +1,8 @@
 <li id='<%= product.title.strip.downcase.gsub(" ", "-")  %>' class='product'>
   <span class='product-title'><%= product.title %></span>
   <span class='product-price'><%= product.price %></span>
-  <span><%= link_to "Add to Cart", line_items_path(product_id: product.id), method: :post, class: 'add-cart'%></span>
+  <%= form_for :line_item, url: line_items_path(product_id: product.id) do |f| %>
+    <%= f.text_field :quantity, class: "quantity-input", value: 1 %>
+    <%= f.submit "Add to Cart", class: "add-cart-button" %>
+  <% end %>
 </li>
