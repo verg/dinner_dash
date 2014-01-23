@@ -1,6 +1,7 @@
 class LineItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :product
+  belongs_to :user
 
   def increment_quantity(by=1)
     original_qty = "CASE WHEN quantity IS NULL THEN 0 ELSE quantity END"

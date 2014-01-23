@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
 
   has_many :category_products
   has_many :categories, through: :category_products
-  has_many :line_items
+  has_many :line_items, dependent: :destroy
 
   monetize :price_cents
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Product do
 
   it { should have_many(:categories) }
-  it { should have_many(:line_items) }
+  it { should have_many(:line_items).dependent(:destroy) }
 
   it "has a valid factory" do
     expect(FactoryGirl.build(:product)).to be_valid

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Cart do
 
-  it { should have_many(:line_items) }
-  it { should belong_to(:user).dependent(:destroy) }
+  it { should have_many(:line_items).dependent(:destroy) }
+  it { should belong_to(:user) }
 
   describe ".add_product" do
     it "adds a line item to the cart for the product" do

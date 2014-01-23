@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  it { should have_one(:cart) }
+  it { should have_one(:cart).dependent(:destroy) }
   it { should have_many(:line_items) }
 
   describe ".items_in_cart" do

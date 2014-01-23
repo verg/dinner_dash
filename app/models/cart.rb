@@ -1,6 +1,6 @@
 class Cart < ActiveRecord::Base
-  has_many :line_items
-  belongs_to :user, dependent: :destroy
+  has_many :line_items, dependent: :destroy
+  belongs_to :user
 
   def add_product(product_or_product_id, quantity=1)
     product_id = product_or_product_id.id if product_or_product_id.respond_to?(:id)
