@@ -2,8 +2,9 @@ class Cart < ActiveRecord::Base
   has_many :line_items
   belongs_to :user, dependent: :destroy
 
-  def add_product(product_id, quantity=1)
-    line_items.create(product: product_id, quantity: quantity)
+  def add_product(product_or_product_id, quantity=1)
+    product_id = product_or_product_id.id if product_or_product_id.respond_to?(:id)
+    line_items.create(product_id: product_id, quantity: quantity)
   end
 
   def find_or_create_line_item_by_product_id(product_id)

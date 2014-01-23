@@ -25,6 +25,7 @@ feature "Products" do
       visit root_path
 
       2.times { add_css_id_to_cart("#mapo-tofu") }
+      expect(page.find(".cart-link").text).to include "$17.98"
       visit_cart
 
       expect(page).to have_css ".product", text: "Mapo Tofu"
@@ -51,7 +52,7 @@ feature "Products" do
   end
 
   def visit_cart
-    find("#cart-link").click
+    find(".cart-link").click
   end
 
   def add_css_id_to_cart(id)
