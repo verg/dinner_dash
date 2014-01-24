@@ -78,6 +78,11 @@ feature "Products" do
       visit cart_path
       expect(page.find(".quantity").value).to eq "2"
     end
+
+    scenario "attempting to view another user's cart"
+    scenario "attempting to checkout without logging in"
+    scenario "attempting to view administrator screens or administrator functionality"
+    scenario "attempting to make themselves administrators"
   end
 
   def visit_cart
