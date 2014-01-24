@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def current_or_guest_user
     if current_user
-      destroy_guest_user if session[:guest_user_id]
+      log_in_and_destroy_guest_user if session[:guest_user_id]
       current_user
     else
       guest_user
@@ -25,10 +25,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def logging_in
-    # assign any state from the guest user to the current user
-  end
-
   def create_guest_user
     user = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@example.com")
     user.save!(validate: false)
@@ -36,9 +32,17 @@ class ApplicationController < ActionController::Base
     user
   end
 
-  def destroy_guest_user
+  def log_in_and_destroy_guest_user
     logging_in
     guest_user.destroy
     session[:guest_user_id] = nil
+  end
+
+  def logging_in
+    # assign any state from the guest user to the current user
+    if cart = guest_user.cart
+      cart.user_id = current_user.id
+      cart.save!
+    end
   end
 end

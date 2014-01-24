@@ -64,10 +64,19 @@ feature "Products" do
     end
 
     scenario "Logging in, without clearing the cart" do
+      user = create(:user, password: "password")
       create(:product, title: "Mapo Tofu", price_cents: 899)
       visit root_path
 
       add_css_id_to_cart("#mapo-tofu", 2)
+      find("#sign-in-link").click
+      find("#user_email").set(user.email)
+      find("#user_password").set("password")
+      page.click_button "Sign in"
+
+      expect(page.find(".cart-link").text).to include "2 Item"
+      visit cart_path
+      expect(page.find(".quantity").value).to eq "2"
     end
   end
 
