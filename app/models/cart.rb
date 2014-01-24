@@ -7,8 +7,12 @@ class Cart < ActiveRecord::Base
     line_items.create(product_id: product_id, quantity: quantity)
   end
 
-  def find_or_create_line_item_by_product_id(product_id)
-    line_items.find_or_create_by(product_id: product_id)
+  def increment_quantity_or_create_line_item_by_product_id(product_id, quantity)
+    if line_item = line_items.find_by(product_id: product_id)
+      line_item.increment_quantity quantity
+    else
+      line_items.create(product_id: product_id, quantity: quantity)
+    end
   end
 
   def total_price

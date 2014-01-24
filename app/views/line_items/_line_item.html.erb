@@ -1,11 +1,12 @@
 <li class='line-item' id='<%= line_item.product_title.strip.downcase.gsub(" ", "-")  %>'>
   <ul>
-    <li class='product'> <%= line_item.product_title %> </li>
-    <li class='quantity'> <%= line_item.quantity %> </li>
     <li class='item-price'> <%= number_to_currency(line_item.total_price) %> </li>
-    <li>
-    <%= button_to "Delete", line_item_path(line_item), method: :delete, 
+    <li class='product'> <%= line_item.product_title %> </li>
+    <%= form_for line_item do |f| %>
+      <li><%= f.text_field :quantity, class: "quantity", value: line_item.quantity %></li>
+      <li><%= f.submit "Update", class: 'update-quantity-button' %></li>
+    <% end %>
+    <%= button_to "Remove", line_item_path(line_item), method: :delete,
         class: 'remove-from-cart' %>
-    </li>
   </ul>
 </li>

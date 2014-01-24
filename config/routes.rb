@@ -2,7 +2,7 @@ DinnerDash::Application.routes.draw do
   devise_for :users
   root 'products#index'
   resources :categories, only: [:show]
-  resources :line_items, only: [:create, :destroy]
+  resources :line_items, only: [:create, :update, :destroy]
   get 'cart', to: "cart#show"
 
   # You can have the root of your site routed with "root"

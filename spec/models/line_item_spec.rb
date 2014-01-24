@@ -3,6 +3,7 @@ require 'spec_helper'
 describe LineItem do
   it { should belong_to(:cart) }
   it { should belong_to(:product) }
+  it { should_not allow_value(-1).for(:quantity) }
 
   it "has a product_title" do
     line_item = create(:line_item)

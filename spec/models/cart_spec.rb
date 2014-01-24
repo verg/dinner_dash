@@ -38,4 +38,31 @@ describe Cart do
       expect(cart.count).to eq 3
     end
   end
+
+  describe "#increment_quantity_or_create_line_item_by_product_id" do
+
+    let(:product_id) { 1 }
+    context "a line item exists for that cart and product" do
+      it "increments a line item's quantity" do
+        cart = Cart.create
+        cart.line_items << create(:line_item, product_id: 1, quantity: 1)
+
+        item = cart.increment_quantity_or_create_line_item_by_product_id(product_id, 2)
+        expect(item.quantity).to eq 1 + 2
+      end
+    end
+
+    context "a line item doesn't exist" do
+      it "creates a new line item with the specified quantity and product id" do
+        cart = Cart.create
+
+        item = nil # initialize var so we can access outside of expect block
+
+        expect {
+          item = cart.increment_quantity_or_create_line_item_by_product_id(product_id, 2)
+        }.to change(LineItem, :count).by(1)
+        expect(item.quantity).to eq 2
+      end
+    end
+  end
 end

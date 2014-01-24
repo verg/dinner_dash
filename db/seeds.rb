@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+[Category, Product, LineItem].each { |model| model.destroy_all }
+
 entrees = Category.create(name: "Entrees")
 drinks = Category.create(name: "Drinks")
 soups = Category.create(name: "Soups")
