@@ -22,9 +22,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, :type => :controller
-end
 
-Spec::Runner.configure do |config|
   config.before(:each) do
     Bullet.start_request if Bullet.enable?
   end
