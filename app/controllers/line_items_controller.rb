@@ -10,17 +10,20 @@ class LineItemsController < ApplicationController
   end
 
   def update
-    line_item = LineItem.find(line_item_id)
     line_item.update_attributes(quantity: line_item_quantity)
     redirect_to cart_path
   end
 
   def destroy
-    LineItem.find(line_item_id).destroy
+    line_item.destroy
     redirect_to cart_path
   end
 
   private
+
+  def line_item
+    LineItem.find(line_item_id)
+  end
 
   def product_id
     params[:product_id]
@@ -32,7 +35,6 @@ class LineItemsController < ApplicationController
 
   def quantity_param
     params[:line_item][:quantity]
-    # params[:quantity]
   end
 
   def line_item_quantity
