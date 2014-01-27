@@ -1,2 +1,2 @@
-<%= link_to "View Cart (#{@presenter.cart_size_string}) $#{@presenter.total_price}", 
-     cart_path, class: "cart-link" %>
+<%= link_to "View Cart (#{@presenter.cart_size_string}) $#{@presenter.total_price}",
+     cart_path(@presenter.cart.user), class: "cart-link" %>

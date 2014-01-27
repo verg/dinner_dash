@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+<li>
+  <%= link_to 'Order History', user_orders_path(current_user), id: "orders-link" %>
+</li>
+<% end %>
