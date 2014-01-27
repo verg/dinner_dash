@@ -5,6 +5,10 @@ DinnerDash::Application.routes.draw do
   resources :line_items, only: [:create, :update, :destroy]
   get 'cart', to: "cart#show"
 
+  resources :users do
+    resources :orders, only: [:index, :new]
+  end
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
