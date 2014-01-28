@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'money-rails'
 gem 'devise'
 gem 'pg'
+gem 'stripe', git: "https://github.com/stripe/stripe-ruby"
 
 group :doc do
   gem 'sdoc', require: false
