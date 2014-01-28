@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Cart do
 
-  it { should have_many(:line_items).dependent(:destroy) }
+  it { should have_many(:line_items) }
   it { should belong_to(:user) }
 
   describe ".add_product" do
@@ -23,6 +23,7 @@ describe Cart do
       cart.add_product(drink)
 
       expect(cart.total_price).to eq Money.new(350+150, "USD")
+      expect(cart.total_price_cents).to eq 500
     end
   end
 
