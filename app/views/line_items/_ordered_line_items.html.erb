@@ -2,6 +2,7 @@
   <ul id='line-item-<%= line_item.id %>'>
     <li class='product'><span class='product-quantity'><%= line_item.quantity %></span>
     <span class="product-title"><%= line_item.product_title %></span></li>
+    <li class='item-description'><%= line_item.product_description %></li>
     <li class='item-price'><%= number_to_currency(line_item.total_price) %></li>
   </ul>
 </div>

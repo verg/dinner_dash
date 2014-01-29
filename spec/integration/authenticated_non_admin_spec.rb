@@ -22,6 +22,7 @@ feature "non-admin users" do
       expect(page).to have_css ".order-status", text: "Paid"
       expect(page.find(".total-order-price").text).to include order_1.total_price.to_s
       expect(page).to have_css ".order-placed-time"
+      expect(page).to have_css ".item-description"
 
       find("#orders-link").click
       find("#order-#{order_2.id}").find('.order-details-link').click
