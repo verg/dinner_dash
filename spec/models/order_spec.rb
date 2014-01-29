@@ -19,4 +19,16 @@ describe Order do
       expect(order.line_items).to include(food_line_item, drink_line_item)
     end
   end
+
+  describe "#total_price" do
+    it "sums the total prices for each of its line items" do
+      food = build(:product, price_cents: 350)
+      drink = build(:product, price_cents: 150)
+      line_items = [build(:line_item, product: food), build(:line_item, product: drink)]
+      order = Order.create
+      order.line_items << line_items
+
+      expect(order.total_price).to eq Money.new(350+150, "USD")
+    end
+  end
 end
