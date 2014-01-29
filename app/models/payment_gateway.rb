@@ -1,6 +1,6 @@
 class PaymentGateway
-  class CardError; end
-  class RegistrationError; end
+  class CardError < StandardError; end
+  class RegistrationError < StandardError; end
 
   def initialize(opts={})
     @customer_gateway = opts.fetch(:customer_gateway) { Stripe::Customer }
@@ -23,12 +23,12 @@ class PaymentGateway
   end
 
   def find_or_create_customer_id(user, email, card_token)
-
     return user.stripe_customer_id if user.stripe_customer_id
 
     begin
       customer = @customer_gateway.create(email: email, card: card_token)
       persist_customer_id(user, customer.id)
+      customer.id
     rescue Stripe::InvalidRequestError => e
       raise PaymentGateway::CardError, e.message
     end

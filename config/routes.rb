@@ -4,6 +4,7 @@ DinnerDash::Application.routes.draw do
   resources :categories, only: [:show]
   resources :line_items, only: [:create, :update, :destroy]
   get 'cart', to: "cart#show"
+  resources :transactions, only: [:new, :create]
 
   resources :users do
     resources :orders, only: [:index, :new]

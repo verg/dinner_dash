@@ -29,7 +29,8 @@ describe PaymentGateway do
         FakeStripe.stub(:create) { double("fake customer", id: "xyz_id") }
 
         FakeStripe.should_receive(:create).with(email: email, card: card_token)
-        gateway.find_or_create_customer_id(user, email, card_token)
+        cust_id = gateway.find_or_create_customer_id(user, email, card_token)
+        expect(cust_id).to eq 'xyz_id'
       end
 
       it "persists the customer id to the user's record" do

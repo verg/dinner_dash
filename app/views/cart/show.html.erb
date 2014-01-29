@@ -2,5 +2,5 @@
   <%= render @cart.line_items %>
   <li class='total-price'><%= number_to_currency(@cart.total_price) %></li>
 </ul>
-<%= link_to "Checkout", new_user_order_path(@cart.user), id: "checkout-link" %>
+<%= link_to "Checkout", new_transaction_path(@cart.user), id: "checkout-link" %>
 
