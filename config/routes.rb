@@ -7,7 +7,7 @@ DinnerDash::Application.routes.draw do
   resources :transactions, only: [:new, :create]
 
   resources :users do
-    resources :orders, only: [:index, :new]
+    resources :orders, only: [:index, :show]
   end
 
   # You can have the root of your site routed with "root"

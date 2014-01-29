@@ -1,0 +1,14 @@
+<li id='order-<%= order.id.to_s %>'>
+  <ul>
+    <li>
+    <%= link_to("Order Details", user_order_path(current_user, order),
+                class: 'order-details-link') %>
+    </li>
+    <li class="order-total-price">
+      Total: $<%= order.total_price %>
+    </li>
+    <li class='order-date-time'>
+      <%= order.created_at.to_time.strftime("%l:%M %P - %B %e, %Y")%>
+    </li>
+  </ul>
+</li>

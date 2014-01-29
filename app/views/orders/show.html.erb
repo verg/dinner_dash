@@ -1,0 +1,19 @@
+<ul>
+  <li class='order-status'>
+  Status: <%= @order.status.capitalize %> 
+    <% if @final_status_timestamp %>
+      at <%= @final_status_timestamp.to_time.strftime("%l:%M %P, %b %e, %Y") %>
+    <% end %>
+  </li>
+  <li class='order-placed-time'>
+    Placed: <%= @order.created_at.to_time.strftime("%l:%M %P, %b %e, %Y") %>
+  </li>
+</ul>
+<ul class='ordered-line_items'>
+  <%= render partial: 'line_items/ordered_line_items',
+    collection: @order.line_items, as: :line_item %>
+</ul>
+
+<p class="total-order-price">
+  Total: $<%= @order.total_price %>
+</p>
