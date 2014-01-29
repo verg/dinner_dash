@@ -11,6 +11,11 @@ describe LineItem do
     expect(line_item.product_title).to eq line_item.product.title
   end
 
+  it "has a product_description" do
+    line_item = create(:line_item)
+    expect(line_item.product_description).to eq line_item.product.description
+  end
+
   it "has a total_price" do
     product = build_stubbed(:product, price_cents: 899, title: "Foodstuff")
     line_item = build_stubbed(:line_item, product: product, quantity: 2)
