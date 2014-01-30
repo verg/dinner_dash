@@ -13,6 +13,8 @@ gem 'money-rails'
 gem 'devise'
 gem 'pg'
 gem 'stripe', git: "https://github.com/stripe/stripe-ruby"
+gem "paperclip", "~> 3.5"
+gem 'simple_form'
 
 group :doc do
   gem 'sdoc', require: false
