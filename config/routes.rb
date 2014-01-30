@@ -2,7 +2,7 @@ DinnerDash::Application.routes.draw do
   devise_for :users
   devise_for :admins
   authenticated :admin do
-    root to: "dashboard#index", as: :authenticated_root
+    root to: "dashboard#show", as: :authenticated_root
   end
 
   root 'products#index'
@@ -11,7 +11,7 @@ DinnerDash::Application.routes.draw do
   resources :line_items, only: [:create, :update, :destroy]
   get 'cart', to: "cart#show"
   resources :transactions, only: [:new, :create]
-  resource :dashboard, only: [:index]
+  resource :dashboard, only: [:show]
 
   resources :users do
     resources :orders, only: [:index, :show]

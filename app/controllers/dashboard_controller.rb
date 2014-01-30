@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   before_filter :authenticate_admin!
 
-  def index
+  def show
     @dashboard = AdminDashboard.new
   end
 end
