@@ -3,8 +3,6 @@ require 'spec_helper'
 describe ProductsController do
   describe "GET #index" do
     it 'populates an array with all of the products' do
-      mapo = create(:product, title: "Mapo Tofu")
-      noodles = create(:product, title: "Dan Dan Noodles")
       get :index
       expect(assigns(:presenter)).to be_instance_of ProductsPresenter
     end
