@@ -20,4 +20,9 @@ unless Rails.env.production?
   hot_pot = Product.create!(title: "Hot Pot", price_cents: 1699, display_rank: 3)
   entrees.products << hot_pot
   soups.products << hot_pot
+
+  User.create!(first_name: "bob", last_name: "user",
+               email: "user@example.com", password: "password")
+
+  Admin.create!(email: "admin@example.com", password: "password")
 end
