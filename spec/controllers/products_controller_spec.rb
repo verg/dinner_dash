@@ -94,4 +94,113 @@ describe ProductsController do
       end
     end
   end
+
+  describe "GET :edit" do
+    it "assigns the requested product to @product" do
+      sign_in create(:admin)
+      product = create(:product)
+
+      get :edit, id: product
+      expect(assigns(:product)).to eq product
+    end
+
+    it "renders the edit template" do
+      sign_in create(:admin)
+      product = create(:product)
+
+      get :edit, id: product
+      expect(response).to render_template :edit
+    end
+
+    it "denies access to non-admin users" do
+      sign_in create(:user)
+      product = create(:product)
+
+      get :edit, id: product
+      expect(response).to redirect_to new_admin_session_path
+    end
+
+    it "denies access for non-authenticated users" do
+      product = create(:product)
+
+      post :create, id: product
+      expect(response).to redirect_to new_admin_session_path
+    end
+  end
+
+  describe "PATCH #update" do
+    before do
+      @product = create(:product)
+    end
+
+    context "with valid attributes" do
+      before { sign_in create(:admin) }
+
+      it "locates the requested @product" do
+        patch :update, id: @product, product: attributes_for(:product)
+        expect(assigns(:product)).to eq @product
+      end
+
+      it "changes @product's attributes" do
+        old_category = @product.categories.last
+        other_category = create(:category)
+
+        patch :update, id: @product,
+          product:
+        { title: "Ice Cream", price: 4.09, description: "A tasty treat!",
+          category_ids: [other_category.id.to_s], "display_rank"=> "5" }
+        @product.reload
+
+        expect(@product.title).to eq "Ice Cream"
+        expect(@product.price).to eq "4.09"
+        expect(@product.description).to eq "A tasty treat!"
+        expect(@product.display_rank).to eq 5
+        expect(@product.categories).to include(other_category)
+        expect(@product.categories).not_to include(old_category)
+      end
+
+      it "redirects to the admin dashboard path" do
+        patch :update, id: @product, product: attributes_for(:product)
+        expect(assigns(:product)).to eq @product
+        expect(response).to redirect_to dashboard_path
+      end
+    end
+
+    context "with invalid attributes" do
+      before { sign_in create(:admin) }
+
+      it "doens't change the contact's attributes" do
+        old_category = @product.categories.last
+        old_attributes = @product.attributes
+        other_category = create(:category)
+
+        patch :update, id: @product, product: attributes_for(:invalid_product)
+        @product.reload
+
+        expect(@product.attributes).to eq old_attributes
+        expect(@product.categories).to include(old_category)
+        expect(@product.categories).not_to include(other_category)
+      end
+
+      it "re-renders the edit template" do
+        patch :update, id: @product, product: attributes_for(:invalid_product)
+        expect(response).to render_template :edit
+      end
+    end
+
+    it "denies access to non-admin users" do
+      sign_in create(:user)
+      product = create(:product)
+
+      patch :update, id: product, product: attributes_for(:product)
+      expect(response).to redirect_to new_admin_session_path
+    end
+
+    it "denies access for non-authenticated users" do
+      product = create(:product)
+
+      patch :update, id: product, product: attributes_for(:product)
+      expect(response).to redirect_to new_admin_session_path
+    end
+  end
 end

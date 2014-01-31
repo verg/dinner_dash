@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
+
   before_filter :authenticate_admin!, except: [:index]
+
   def index
     @presenter = ProductsPresenter.new(current_cart)
   end
@@ -21,7 +23,26 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit
+    @product = Product.find(product_id)
+  end
+
+  def update
+    @product = Product.find(product_id)
+
+    if @product.update(product_params)
+      @product.categories = Category.where(id: category_ids)
+      redirect_to dashboard_path
+    else
+      render :edit
+    end
+  end
+
   private
+
+  def product_id
+    params[:id]
+  end
 
   def product_params
     params.require(:product).

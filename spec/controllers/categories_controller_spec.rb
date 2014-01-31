@@ -167,7 +167,7 @@ describe CategoriesController do
         expect(@category.products).not_to include(other_product)
       end
 
-      it "re-renderes the edit template" do
+      it "re-renders the edit template" do
         patch :update, id: @category, category: attributes_for(:invalid_category)
         expect(response).to render_template :edit
       end
