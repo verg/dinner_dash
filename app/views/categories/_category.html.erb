@@ -1,6 +1,7 @@
 <li class='product'>
   <%= link_to category.name.titleize, category_path(category) %>
   <% if admin_signed_in? %>
-    <%= link_to "Edit", edit_category_path(category) %>
+    <%= link_to "Edit", edit_category_path(category), 
+      id: "edit_category_#{category.id}_link" %>
   <% end %>
 </li>
