@@ -14,7 +14,9 @@ class Product < ActiveRecord::Base
   has_attached_file :photo, styles: { medium: "300x300" }
 
   validates_attachment :photo,
-    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] }, :if => :photo_attached?
+    :content_type =>
+      { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
+      :if => :photo_attached?
 
   def self.available
     all.order(:display_rank)
