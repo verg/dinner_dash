@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DashboardController do
+describe DashboardsController do
   describe "GET #show" do
     it "assigns a new AdminDashboard object to @dashboard" do
       sign_in create(:admin)

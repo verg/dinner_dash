@@ -2,7 +2,7 @@ DinnerDash::Application.routes.draw do
   devise_for :users
   devise_for :admins
   authenticated :admin do
-    root to: "dashboard#show", as: :authenticated_root
+    root to: "dashboards#show", as: :authenticated_root
   end
 
   root 'products#index'
