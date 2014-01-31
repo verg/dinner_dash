@@ -2,3 +2,10 @@
 
 <%= link_to "Create New Menu Item", new_product_path, id: 'new-product-link'%>
 <%= link_to "Create New Menu Category", new_category_path, id: 'new-category-link'%>
+
+<div class="categories">
+  <h3>Categories</h3>
+  <ul>
+    <%= render @dashboard.categories %>
+  </ul>
+</div>
