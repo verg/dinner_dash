@@ -21,7 +21,7 @@ unless Rails.env.production?
   entrees.products << hot_pot
   soups.products << hot_pot
 
-  User.create!(first_name: "bob", last_name: "user",
+  User.create!(firstname: "bob", lastname: "user",
                email: "user@example.com", password: "password")
 
   Admin.create!(email: "admin@example.com", password: "password")
