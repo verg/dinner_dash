@@ -1,5 +1,2 @@
-<%= simple_form_for @category do |f| %>
-  <%= f.input :name %>
-  <%= f.association :products, as: :check_boxes %>
-  <%= f.submit "Create" %>
-<% end %>
+<h2 id="create-menu-item-title">Create Menu Category</h2>
+<%= render partial: 'form' %>
