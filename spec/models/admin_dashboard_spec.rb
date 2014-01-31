@@ -6,4 +6,10 @@ describe AdminDashboard do
     dashboard = AdminDashboard.new
     expect(dashboard.categories).to match_array([category])
   end
+
+  it "gives access to all Products" do
+    product = create(:product)
+    dashboard = AdminDashboard.new
+    expect(dashboard.products).to match_array([product])
+  end
 end
