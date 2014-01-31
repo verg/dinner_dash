@@ -10,10 +10,11 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(product_params)
-    product.categories << Category.where(id: category_ids)
+    @product = Product.new(product_params)
+    @categories = Category.all
+    @product.categories << @categories.where(id: category_ids)
 
-    if product.save
+    if @product.save
       redirect_to dashboard_path
     else
       render :new
@@ -28,6 +29,6 @@ class ProductsController < ApplicationController
   end
 
   def category_ids
-    params[:category_ids]
+    params[:product][:category_ids]
   end
 end

@@ -53,13 +53,13 @@ describe ProductsController do
       end
 
       it "redirects to the admin dashboard" do
-          post :create, :product => product_attributes
+        post :create, :product => product_attributes
         expect(response).to redirect_to dashboard_path
       end
 
       def product_attributes
-          { title: "Ice Cream", price: 4.09, description: "A tasty treat!",
-            category_ids: ["6"], "display_rank"=> "5" }
+        { title: "Ice Cream", price: 4.09, description: "A tasty treat!",
+          category_ids: ["6"], "display_rank"=> "5" }
       end
     end
 
