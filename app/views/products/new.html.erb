@@ -1,13 +1,2 @@
-<div id="new-product-form">
-  <%= simple_form_for @product do |f| %>
-    <%= f.input :title, input_html: { placeholder: "Pizza" } %>
-    <%= f.input :price, input_html:  {placeholder: number_with_precision(0, precision: 2) } %>
-    <%= f.input :description, as: :text, :input_html => { :cols => 50, :rows => 5 } %>
-    <%= f.association :categories,  as: :check_boxes %>
-    <%= f.input :photo, as: :file %>
-    <%= f.input :display_rank, as: :integer, in: (1..10), step: 1, value: 5 %>
-    <small id='display-rank-help-text'>Products with lower page ranks display higher on the page.</small>
-
-    <%= f.submit "Create" %>
-  <% end %>
-</div>
+<h2 id="new-product-title">New Menu Item</h2>
+<%= render partial: 'form' %>
