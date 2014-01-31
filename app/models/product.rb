@@ -9,13 +9,20 @@ class Product < ActiveRecord::Base
   has_many :category_products
   has_many :categories, through: :category_products
   has_many :line_items
-
-  has_attached_file :photo, styles: { medium: "300x300" }, default_url: "/images/:style/missing.png"
-  validates_attachment :photo,
-    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] }
   monetize :price_cents
+
+  has_attached_file :photo, styles: { medium: "300x300" }
+
+  validates_attachment :photo,
+    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] }, :if => :photo_attached?
 
   def self.available
     all.order(:display_rank)
+  end
+
+  private
+
+  def photo_attached?
+    self.photo.file?
   end
 end

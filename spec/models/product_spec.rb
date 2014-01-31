@@ -35,4 +35,9 @@ describe Product do
       expect(build(:product, price_cents: 0.1)).to have(1).errors_on(:price_cents)
     end
   end
+
+  describe "photo" do
+    it { should validate_attachment_content_type(:photo).
+         allowing('image/png', 'image/jpg', 'image/gif') }
+  end
 end
