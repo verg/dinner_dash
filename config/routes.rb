@@ -7,7 +7,7 @@ DinnerDash::Application.routes.draw do
 
   root 'products#index'
   resources :products, only: [:index, :new, :create]
-  resources :categories, only: [:show]
+  resources :categories, only: [:new, :create, :show]
   resources :line_items, only: [:create, :update, :destroy]
   get 'cart', to: "cart#show"
   resources :transactions, only: [:new, :create]
