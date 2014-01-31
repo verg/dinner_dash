@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_filter :authenticate_admin!, except: [:show]
+
   def show
     @presenter = ProductsPresenter.for(category_id, current_cart)
   end
@@ -16,6 +17,21 @@ class CategoriesController < ApplicationController
       redirect_to dashboard_path
     else
       render :new
+    end
+  end
+
+  def edit
+    @category = Category.find(category_id)
+  end
+
+  def update
+    @category = Category.find(category_id)
+
+    if @category.update(category_params)
+      @category.products = Product.where(id: product_ids)
+      redirect_to dashboard_path
+    else
+      render :edit
     end
   end
 
