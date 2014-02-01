@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :verify_correct_user
 
   def index
-    @orders = Order.where(user_id: user_id)
+    @orders = Order.for_user(user_id)
   end
 
   def show

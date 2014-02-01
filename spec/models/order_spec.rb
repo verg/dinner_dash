@@ -31,4 +31,17 @@ describe Order do
       expect(order.total_price).to eq Money.new(350+150, "USD")
     end
   end
+
+  describe ".for_user" do
+    it "finds all orders for the specified user" do
+      user = create(:user)
+      other_user = create(:user)
+
+      users_order = create(:order, user: user)
+      other_users_order = create(:order, user: other_users_order)
+
+     expect( Order.for_user(user) ).to include(users_order)
+     expect( Order.for_user(user) ).not_to include(other_users_order)
+    end
+  end
 end

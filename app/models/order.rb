@@ -14,4 +14,8 @@ class Order < ActiveRecord::Base
       sum + item.total_price
     }
   end
+
+  def self.for_user(user_or_user_id)
+    where(user_id: user_or_user_id.to_param)
+  end
 end

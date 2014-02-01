@@ -49,7 +49,6 @@ describe OrdersController do
       get :show, id: order, user_id: user
       expect(response).to render_template :show
     end
-
     it "denies access to viewing other user's orders" do
       sign_in non_admin_user = create(:user)
       other_user = create(:user)
