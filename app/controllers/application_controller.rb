@@ -40,9 +40,15 @@ class ApplicationController < ActionController::Base
 
   def logging_in
     # assign any state from the guest user to the current user
-    if cart = guest_user.cart
+    cart = guest_user.cart
+    if cart && cart.line_items.any?
+      destroy_old_carts
       cart.user_id = current_user.id
       cart.save!
     end
+  end
+
+  def destroy_old_carts
+    Cart.where(user_id: current_user).destroy_all
   end
 end
