@@ -9,9 +9,15 @@ describe Product do
     expect(FactoryGirl.build(:product)).to be_valid
   end
 
-  it "has availible products" do
-    product = create(:product)
-    expect(Product.available).to include product
+  it "has available and retired products" do
+    available = create(:product, available: true)
+    retired = create(:product, available: false)
+
+    expect(Product.available).to include available
+    expect(Product.available).not_to include retired
+
+    expect(Product.retired).to include retired
+    expect(Product.retired).not_to include available
   end
 
   describe "title" do
@@ -39,5 +45,12 @@ describe Product do
   describe "photo" do
     it { should validate_attachment_content_type(:photo).
          allowing('image/png', 'image/jpg', 'image/gif') }
+  end
+
+  describe "available" do
+    it "must be present" do
+      product = build(:product, available: nil)
+      expect(product).not_to be_valid
+    end
   end
 end

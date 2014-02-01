@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).
-      permit(:title, :price, :description, :display_rank, :photo)
+      permit(:title, :price, :description, :display_rank, :photo, :available)
   end
 
   def category_ids

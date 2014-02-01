@@ -3,6 +3,7 @@ require 'uri'
 class Product < ActiveRecord::Base
   validates :title, presence: true
   validates :title, uniqueness: true
+  validates_inclusion_of :available, :in => [true, false]
   validates :price_cents, numericality: { greater_than_or_equal_to: 0,
                                           only_integer: true }
 
@@ -19,7 +20,11 @@ class Product < ActiveRecord::Base
       :if => :photo_attached?
 
   def self.available
-    all.order(:display_rank)
+    where(available: true).order(:display_rank)
+  end
+
+  def self.retired
+    where(available: false).order(:display_rank)
   end
 
   private

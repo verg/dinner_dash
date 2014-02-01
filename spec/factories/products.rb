@@ -5,6 +5,7 @@ FactoryGirl.define do
     title { Faker::Lorem.sentence(2) }
     description "A delicious treat."
     price_cents 895
+    available true
     after(:create) {|product| product.categories << FactoryGirl.create(:category) }
     factory :invalid_product do
       title nil
