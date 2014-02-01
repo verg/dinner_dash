@@ -1,7 +1,7 @@
 <div id="new-product-form">
   <%= simple_form_for @product do |f| %>
     <%= f.input :title, input_html: { placeholder: "Pizza" } %>
-    <%= f.input :price, input_html:  {placeholder: number_with_precision(0, precision: 2) } %>
+    <%= f.input :price, input_html:  { placeholder: number_with_precision(0, precision: 2) } %>
     <%= f.input :description, as: :text, :input_html => { :cols => 50, :rows => 5 } %>
     <%= f.association :categories,  as: :check_boxes %>
     <%= f.input :photo, as: :file %>

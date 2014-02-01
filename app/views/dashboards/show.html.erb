@@ -9,3 +9,13 @@
     <%= render @dashboard.categories %>
   </ul>
 </div>
+
+<div class="products">
+  <h3>Products</h3>
+
+  <ul>
+    <%= render partial: 'product_links',
+      collection: @dashboard.products, as: :product %>
+  </ul>
+
+</div>

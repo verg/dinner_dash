@@ -1,0 +1,7 @@
+<li class='product'>
+  <%= link_to product.title.titleize, product_path(product) %>
+  <% if admin_signed_in? %>
+    <%= link_to "Edit", edit_product_path(product), 
+      id: "edit_product_#{product.id}_link" %>
+  <% end %>
+</li>

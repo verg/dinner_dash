@@ -14,6 +14,20 @@ describe ProductsController do
     end
   end
 
+  describe "GET #show" do
+    it "assigns a the Product to @product" do
+      product = create(:product)
+      get :show, id: product
+      expect(assigns(:product)).to eq product
+    end
+
+    it "renders the show template" do
+      product = create(:product)
+      get :show, id: product
+      expect(response).to render_template :show
+    end
+  end
+
   describe "GET #new" do
     it "assigns a new Product object to @product" do
       sign_in create(:admin)

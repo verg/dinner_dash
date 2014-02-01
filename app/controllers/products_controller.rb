@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  before_filter :authenticate_admin!, except: [:index]
+  before_filter :authenticate_admin!, except: [:index, :show]
 
   def index
     @presenter = ProductsPresenter.new(current_cart)
@@ -9,6 +9,10 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @categories = Category.all
+  end
+
+  def show
+    @product = Product.find(product_id)
   end
 
   def create

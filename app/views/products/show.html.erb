@@ -1,0 +1,20 @@
+<% if @product.photo.file? %>
+  <%= image_tag @product.photo.url(:medium) %>
+<% end %>
+
+<ul>
+  <li>Title: <%= @product.title %></li>
+  <li>Price: $<%= @product.price %></li>
+  <li>Description: <%= @product.description %></li>
+  <li>Display Rank: <%= @product.display_rank %></li>
+  <% if @product.categories.any? %>
+    <li>
+    Categories:
+    <% @product.categories.each do |category| %>
+      <ul>
+        <li><%= category.name %></li>
+      </ul>
+    <% end %>
+    </li>
+  <% end %>
+</ul>
