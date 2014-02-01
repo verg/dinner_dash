@@ -33,7 +33,6 @@ describe TransactionsController do
         }.to change(Order, :count).by(1)
       end
 
-      before { Bullet.enable = false }
       it "sends a charge to the payment gateway" do
 
         price = 500

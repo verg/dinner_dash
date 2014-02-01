@@ -24,13 +24,4 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, :type => :controller
   config.include Paperclip::Shoulda::Matchers
-
-  config.before(:each) do
-    Bullet.start_request if Bullet.enable?
-  end
-
-  config.after(:each) do
-    Bullet.perform_out_of_channel_notifications if Bullet.enable? && Bullet.notification?
-    Bullet.end_request if Bullet.enable?
-  end
 end
