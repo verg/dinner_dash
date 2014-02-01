@@ -42,6 +42,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def retired
+    @products = Product.retired
+  end
+
   private
 
   def product_id

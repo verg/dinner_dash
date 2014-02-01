@@ -217,4 +217,24 @@ describe ProductsController do
       expect(response).to redirect_to new_admin_session_path
     end
   end
+
+  describe "GET #retired" do
+
+    before { sign_in create(:admin) }
+
+    it "assigns all retired products to @products" do
+      available = double("prodcut")
+      retired = double("prodcut")
+      Product.stub(:retired).and_return([retired])
+
+      get :retired
+      expect(assigns(:products)).to include(retired)
+      expect(assigns(:products)).not_to include(available)
+    end
+
+    it "renders the :retired template" do
+      get :retired
+      expect(response).to render_template :retired
+    end
+  end
 end

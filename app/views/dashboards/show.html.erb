@@ -17,5 +17,7 @@
     <%= render partial: 'product_links',
       collection: @dashboard.products, as: :product %>
   </ul>
+  <%= link_to "View Retired Products", retired_products_path, 
+    id: "retired-products-link"%>
 
 </div>

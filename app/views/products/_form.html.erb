@@ -6,6 +6,7 @@
     <%= f.association :categories,  as: :check_boxes %>
     <%= f.input :photo, as: :file %>
     <%= f.input :display_rank, as: :integer, in: (1..10), step: 1, value: 5 %>
+    <%= f.input :available, as: :radio_buttons, input_html: { class: "product-available" } %>
     <small id='display-rank-help-text'>Products with lower page ranks display higher on the page.</small>
 
     <%= f.submit "Submit" %>
