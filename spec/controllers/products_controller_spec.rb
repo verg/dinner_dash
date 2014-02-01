@@ -161,16 +161,16 @@ describe ProductsController do
 
         patch :update, id: @product,
           product:
-        { title: "Ice Cream", price: 4.09, description: "A tasty treat!",
-          category_ids: [other_category.id.to_s], "display_rank"=> "5" }
-        @product.reload
+          { title: "Ice Cream", price: 4.09, description: "A tasty treat!",
+            category_ids: [other_category.id.to_s], "display_rank"=> "5" }
+          @product.reload
 
-        expect(@product.title).to eq "Ice Cream"
-        expect(@product.price).to eq "4.09"
-        expect(@product.description).to eq "A tasty treat!"
-        expect(@product.display_rank).to eq 5
-        expect(@product.categories).to include(other_category)
-        expect(@product.categories).not_to include(old_category)
+          expect(@product.title).to eq "Ice Cream"
+          expect(@product.price).to eq "4.09"
+          expect(@product.description).to eq "A tasty treat!"
+          expect(@product.display_rank).to eq 5
+          expect(@product.categories).to include(other_category)
+          expect(@product.categories).not_to include(old_category)
       end
 
       it "redirects to the admin dashboard path" do

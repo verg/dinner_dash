@@ -1,8 +1,9 @@
 class AdminDashboard
-  attr_reader :categories, :products
+  attr_reader :categories, :products, :orders
 
   def initialize
     @categories = Category.all
-    @products = Product.all
+    @products = Product.available
+    @orders = Order.all
   end
 end
