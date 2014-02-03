@@ -3,6 +3,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   accepts_nested_attributes_for :line_items
 
+  after_save :update_finalized_timestamp
+
   def self.create_from_cart(cart, opts={})
     opts = opts.merge(user: cart.user)
     order = new(opts)
@@ -33,6 +35,12 @@ class Order < ActiveRecord::Base
       "paid"
     else
       "ordered"
+    end
+  end
+
+  def update_finalized_timestamp
+    if canceled_changed? || complete_changed?
+      touch :finalized_at
     end
   end
 end

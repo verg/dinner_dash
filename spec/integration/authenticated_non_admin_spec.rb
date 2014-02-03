@@ -11,7 +11,7 @@ feature "non-admin users" do
     scenario "viewing past orders" do
       sign_in user = create(:user)
       order_1 = create(:order, user: user, paid: true)
-      order_2 = create(:order, user: user, completed: true)
+      order_2 = create(:order, user: user, complete: true)
 
       visit root_path
       find("#orders-link").click
@@ -19,11 +19,12 @@ feature "non-admin users" do
       expect(page).to have_css("#order-#{order_2.id}")
 
       find("#order-#{order_1.id}").find('.order-details-link').click
-      expect(page).to have_css ".order-status", text: "Paid"
+      expect(page).to have_css ".order-status", text: "Status: Paid"
       expect(page.find(".total-order-price").text).to include order_1.total_price.to_s
       expect(page).to have_css ".order-placed-time"
       expect(page).to have_css ".item-description"
 
+      visit root_path
       find("#orders-link").click
       find("#order-#{order_2.id}").find('.order-details-link').click
       expect(page).to have_css ".order-status", text: "Completed at"

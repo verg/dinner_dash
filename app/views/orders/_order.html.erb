@@ -1,8 +1,11 @@
 <li id='order-<%= order.id.to_s %>'>
   <ul>
     <li>
-    <%= link_to("Order #{order.id}", user_order_path(order, order.user_id),
+    <%= link_to("Order #{order.id}", user_order_path(order.user_id, order),
                 class: 'order-details-link', id: "order-#{order.id}-link") %>
+    </li>
+    <li class='order-status'>
+      Status: <%= order.status.capitalize %>
     </li>
     <li class="order-total-price">
       Total: $<%= order.total_price %>

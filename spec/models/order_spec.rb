@@ -58,4 +58,37 @@ describe Order do
       expect(order.canceled?).to be_false
     end
   end
+
+  describe "#finalized_at" do
+    it "is set when the order's cancel or complete status is updated" do
+      order = create(:order, canceled: false)
+      expect {
+        order.update_attributes(canceled: true)
+        order.save
+      }.to change(order, :finalized_at)
+
+      order = create(:order, complete: false)
+      expect {
+        order.update_attributes(complete: true)
+        order.save
+      }.to change(order, :finalized_at)
+
+      expect(create(:order, complete: true).finalized_at).not_to be_false
+      expect(create(:order, canceled: true).finalized_at).not_to be_false
+    end
+
+    it "doesn't update if the order is updated w/ the same canceled & complete status" do
+      order = create(:order, canceled: true)
+      expect {
+        order.update_attributes(canceled: true)
+        order.save
+      }.not_to change(order, :finalized_at)
+
+      order = create(:order, complete: true)
+      expect {
+        order.update_attributes(complete: true)
+        order.save
+      }.not_to change(order, :finalized_at)
+    end
+  end
 end

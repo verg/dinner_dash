@@ -10,9 +10,6 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.includes(line_items: [:product]).find_by(id: order_id)
-    if order_finished?(@order)
-      @final_status_timestamp = @order.updated_at
-    end
   end
 
   def cancel
@@ -80,10 +77,6 @@ class OrdersController < ApplicationController
     if user_id.to_i != current_user.id
       redirect_to user_orders_path(current_user.id)
     end
-  end
-
-  def order_finished?(order)
-    order.completed? || order.canceled?
   end
 
   def update_status(status)
