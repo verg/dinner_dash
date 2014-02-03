@@ -12,5 +12,10 @@ describe User do
 
       expect(user.items_in_cart).to eq [in_cart]
     end
+
+    it "has a full name" do
+      user = create(:user)
+      expect(user.full_name).to eq user.firstname + " " + user.lastname
+    end
   end
 end

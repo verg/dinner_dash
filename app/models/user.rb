@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
   def items_in_cart
     line_items
   end
+
+  def full_name
+    "#{firstname} #{lastname}"
+  end
 end
