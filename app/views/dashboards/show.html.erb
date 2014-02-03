@@ -1,27 +1,5 @@
 <h1 id="admin-dashboard-title">Admin Dashboard</h1>
 
-<%= link_to "Create New Menu Item", new_product_path, id: 'new-product-link'%>
-<%= link_to "Create New Menu Category", new_category_path, id: 'new-category-link'%>
-
-<div class="categories">
-  <h3>Categories</h3>
-  <ul>
-    <%= render @dashboard.categories %>
-  </ul>
-</div>
-
-<div class="products">
-  <h3>Products</h3>
-
-  <ul>
-    <%= render partial: 'product_links',
-      collection: @dashboard.products, as: :product %>
-  </ul>
-  <%= link_to "View Retired Products", retired_products_path, 
-    id: "retired-products-link"%>
-
-</div>
-
 <h3>Recent Orders</h2>
 <div class="dashboard-orders">
   <ul>
@@ -29,3 +7,26 @@
       collection: @dashboard.orders, as: :order %>
   </ul>
 </div>
+
+
+<div class="categories">
+  <h3>Menu Categories</h3>
+  <ul>
+    <%= render @dashboard.categories %>
+  </ul>
+</div>
+
+<div class="products">
+  <h3>Menu Items</h3>
+
+  <ul>
+    <%= render partial: 'product_links',
+      collection: @dashboard.products, as: :product %>
+  </ul>
+  <%= link_to "View Retired Items", retired_products_path, 
+    id: "retired-products-link"%>
+</div>
+
+<%= link_to "Create New Menu Item", new_product_path, id: 'new-product-link'%>
+<%= link_to "Create New Menu Category", new_category_path, id: 'new-category-link'%>
+

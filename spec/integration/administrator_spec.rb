@@ -49,7 +49,7 @@ feature "administrators" do
     visit dashboard_path
     find("#edit_product_#{tea.id}_link").click
     find(:css, "#product_category_ids_#{drinks.id}").set(true)
-    find(".product-available").first.choose("No") # set Available to false
+    choose("No") # set Available to false
     click_button "Submit"
 
     find("#retired-products-link").click
