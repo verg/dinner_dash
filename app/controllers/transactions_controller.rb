@@ -42,7 +42,7 @@ class TransactionsController < ApplicationController
   end
 
   def create_order
-    Order.create_from_cart(current_cart, status: "ordered")
+    Order.create_from_cart(current_cart)
   end
 
   def description_for(order)
@@ -54,7 +54,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_order_status_to_paid order
-    order.status = "paid"
+    order.update_attributes(paid: true)
     order.save
   end
 

@@ -10,8 +10,8 @@ feature "non-admin users" do
   feature "past orders" do
     scenario "viewing past orders" do
       sign_in user = create(:user)
-      order_1 = create(:order, user: user, status: "paid")
-      order_2 = create(:order, user: user, status: "completed")
+      order_1 = create(:order, user: user, paid: true)
+      order_2 = create(:order, user: user, completed: true)
 
       visit root_path
       find("#orders-link").click

@@ -24,5 +24,8 @@
 
 <h3>Recent Orders</h2>
 <div class="dashboard-orders">
-  <%= render @dashboard.orders %>
+  <ul>
+    <%= render partial: 'orders/edit_order_link', 
+      collection: @dashboard.orders, as: :order %>
+  </ul>
 </div>

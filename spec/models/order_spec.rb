@@ -40,8 +40,22 @@ describe Order do
       users_order = create(:order, user: user)
       other_users_order = create(:order, user: other_users_order)
 
-     expect( Order.for_user(user) ).to include(users_order)
-     expect( Order.for_user(user) ).not_to include(other_users_order)
+      expect( Order.for_user(user) ).to include(users_order)
+      expect( Order.for_user(user) ).not_to include(other_users_order)
+    end
+  end
+
+  describe "order status" do
+    it "has status helpers" do
+      order = create(:order, complete: true, paid: true, canceled: true)
+      expect(order.completed?).to be_true
+      expect(order.paid?).to be_true
+      expect(order.canceled?).to be_true
+
+      order = create(:order, complete: false, paid: false, canceled: false)
+      expect(order.paid?).to be_false
+      expect(order.completed?).to be_false
+      expect(order.canceled?).to be_false
     end
   end
 end

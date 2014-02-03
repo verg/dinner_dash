@@ -1,0 +1,23 @@
+<li id='order-<%= order.id.to_s %>'>
+    <%= link_to("Order #{order.id}", edit_order_path(order),
+                class: 'order-details-link', id: "order-#{order.id}-link") %>
+    <span class="order-total-price">
+      Total: $<%= order.total_price %>
+    </span>
+    <span class='order-status'>Status: <%= order.status.capitalize %></span>
+    <span class='order-date-time'>
+      <%= order.created_at.to_time.strftime("%l:%M %P - %B %e, %Y") %>
+    </span>
+
+    <% unless order.canceled? %>
+      <%= link_to "Cancel", cancel_order_path(order), method: :patch %>
+    <% end %>
+
+    <% unless order.paid? %>
+      <%= link_to "Mark Paid", paid_order_path(order), method: :patch%>
+    <% end %>
+
+    <% unless order.completed? %>
+      <%= link_to "Mark Complete", complete_order_path(order), method: :patch %>
+    <% end %>
+</li>
