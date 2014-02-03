@@ -85,17 +85,34 @@ feature "administrators" do
 end
 
 feature "admin dashboard" do
+  scenario "viewing orders" do
+    Order.destroy_all
+    order = create(:order)
+    total_price = order.total_price
+    quantity = order.line_items.reduce(0) {|sum, item| sum + item.quantity }
+
+    sign_in
+    expect(page).to have_css("#order-#{order.id}-link")
+    click_link "Mark Paid"
+    expect(page).to have_content("Status: Paid")
+
+    click_link "Mark Complete"
+    expect(page).to have_content("Status: Complete")
+
+    click_link "Cancel"
+    expect(page).to have_content("Status: Canceled")
+
+    find(".edit-order-link").click
+    find(".quantity-input").set(quantity + 1)
+
+    click_button "Update Order"
+    find(".edit-order-link").click
+    expect(find(".quantity-input").value).to match (quantity + 1).to_s
+  end
+
   # See a listing of all orders with:
   #   the total number of orders by status
-  # links for each individual order
   # filter orders to display by status type (for statuses "ordered", "paid", "cancelled", "completed")
-  # link to transition to a different status:
-  #   link to "cancel" individual orders which are currently "ordered" or "paid"
-  # link to "mark as paid" orders which are "ordered"
-  # link to "mark as completed" individual orders which are currently "paid"
-  # Access details of an individual order, including:
-  #   Order date and time
-  # Purchaser full name and email address
   # For each item on the order:
   #   Name with link to item page
   # Quantity

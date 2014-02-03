@@ -45,6 +45,15 @@ describe Order do
     end
   end
 
+  it "has a name and email for the user" do
+    user = create(:user)
+
+    order = create(:order, user: user)
+
+    expect(order.user_name).to eq user.full_name
+    expect(order.user_email).to eq user.email
+  end
+
   describe "order status" do
     it "has status helpers" do
       order = create(:order, complete: true, paid: true, canceled: true)

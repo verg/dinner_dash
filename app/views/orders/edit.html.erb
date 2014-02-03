@@ -1,7 +1,11 @@
 <div class="order-details">
-  <span class='order-status'>Status: <%= @order.status %></span>
+  <span class='order-status'>Status: <%= @order.status.capitalize %></span>
   <span class='order-date-time'>
     <%= @order.created_at.to_time.strftime("%l:%M %P - %B %e, %Y") %>
+    <div class="user-info">
+      <span class="user-name">User: <%= @order.user_name %></span>
+      <span class='user-email'>Email: <%= @order.user_email %></span>
+    </div>
   </span>
 </div>
 <div id="order-form">
@@ -10,7 +14,8 @@
       <% @order.line_items.each do |line_item| %>
         <%= f.fields_for :line_items, line_item do |li_fields| %>
           <%= li_fields.input :quantity, label: line_item.product_title,
-            as: :integer, input_html: { min: 0, value: line_item.quantity } %>
+            as: :integer, input_html: { min: 0, value: line_item.quantity, 
+                                        class: "quantity-input"} %>
           <%= li_fields.hint "Subtotal:  #{line_item.total_price}" %>
         <% end %>
       <% end %>

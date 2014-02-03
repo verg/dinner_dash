@@ -43,4 +43,12 @@ class Order < ActiveRecord::Base
       touch :finalized_at
     end
   end
+
+  def user_name
+    user.full_name
+  end
+
+  def user_email
+    user.email
+  end
 end

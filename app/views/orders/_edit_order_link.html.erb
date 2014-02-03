@@ -9,7 +9,7 @@
     </span>
 
     <%= link_to("Edit", edit_order_path(order),
-                class: 'order-details-link', id: "order-#{order.id}-link") %>
+                class: 'edit-order-link', id: "order-#{order.id}-link") %>
 
     <% unless order.canceled? %>
       <%= link_to "Cancel", cancel_order_path(order), method: :patch %>
