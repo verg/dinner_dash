@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   def current_cart
     current_or_guest_user.cart || current_or_guest_user.create_cart
   end
+  helper_method :current_cart
 
   def current_or_guest_user
     if current_user

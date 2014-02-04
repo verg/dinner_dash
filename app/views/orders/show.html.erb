@@ -4,7 +4,7 @@
   </li>
 
   <li class='order-status'>
-  Status: <%= @order.status.capitalize %> 
+  Status: <%= @order.status.capitalize %>
     <% if @order.finalized_at %>
       at <%= @order.finalized_at.to_time.strftime("%l:%M %P, %b %e, %Y") %>
     <% end %>

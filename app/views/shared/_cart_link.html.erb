@@ -1,2 +1,6 @@
-<%= link_to "View Cart (#{@presenter.cart_size_string}) $#{@presenter.total_price}",
+<% unless admin_signed_in? %>
+<li>
+<%= link_to "View Cart (#{pluralize(current_cart.count, "Item")}) $#{current_cart.total_price}",
      cart_path, class: "cart-link" %>
+</li>
+<% end %>
