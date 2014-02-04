@@ -4,9 +4,12 @@
       <span>Amount: <%= @cart.total_price %></span>
     </label>
   </article>
+  <% if @cart.total_price_cents > 0 %>
+    <%= button_to("Pay at Pickup", action: "create") %>
 
   <script src="https://checkout.stripe.com/checkout.js" class="payment-button stripe-button"
           data-key="<%= @payment_gateway_key %>"
           data-description="A month's subscription"
           data-amount="<%= @cart.total_price_cents %>"></script>
+  <% end %>
 <% end %>

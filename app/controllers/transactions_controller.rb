@@ -8,17 +8,15 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    customer_id = payment_gateway.find_or_create_customer_id(
-      current_user,
-      customer_email,
-      card_token
-    )
+    if paid_with_card?
+      customer_id = get_customer_id_from_payment_gateway
+      order = create_order
+      payment_gateway.create_charge(customer_id, amount_in_cents, description_for(order))
+      set_order_status_to_paid(order)
+    else
+      create_order
+    end
 
-    order = create_order
-    payment_description = description_for(order)
-
-    payment_gateway.create_charge(customer_id, amount_in_cents, payment_description)
-    set_order_status_to_paid(order)
     redirect_to root_path
 
   rescue PaymentGateway::CardError => e
@@ -29,16 +27,28 @@ class TransactionsController < ApplicationController
 
   private
 
-  def payment_gateway
-    @payment_gateway ||= PaymentGateway.new
+  def paid_with_card?
+    customer_email && card_token ? true : false
   end
 
   def customer_email
-    params["stripeEmail"]
+    @customer_email ||= params["stripeEmail"]
   end
 
   def card_token
-    params[:stripeToken]
+    @card_token ||= params[:stripeToken]
+  end
+
+  def get_customer_id_from_payment_gateway
+    payment_gateway.find_or_create_customer_id(
+      current_user,
+      customer_email,
+      card_token
+    )
+  end
+
+  def payment_gateway
+    @payment_gateway ||= PaymentGateway.new
   end
 
   def create_order

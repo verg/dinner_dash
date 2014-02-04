@@ -23,18 +23,18 @@ describe TransactionsController do
     end
 
     describe "with a sucessful transaction" do
-      it "creates a new order" do
+      it "creates a new order, marked as paid" do
         sign_in create(:user, stripe_customer_id: "id")
         PaymentGateway.any_instance.stub(:create_charge)
 
         expect{
           post :create, stripeToken: "tok_103OXi2MiUtVpB73G4i2I4CQ",
-          stripeEmpil: "user@example.com"
+          stripeEmail: "user@example.com"
         }.to change(Order, :count).by(1)
+        expect(Order.last.paid).to be_true
       end
 
       it "sends a charge to the payment gateway" do
-
         price = 500
         sign_in create(:user, stripe_customer_id: "id")
         @controller.current_cart.stub(:total_price_cents).and_return(price)
@@ -43,7 +43,7 @@ describe TransactionsController do
           with("id", price, /Order: \d+/)
 
         post :create, stripeToken: "tok_103OXi2MiUtVpB73G4i2I4CQ",
-          stripeEmpil: "user@example.com"
+          stripeEmail: "user@example.com"
       end
 
       it "redirects to the root path" do
@@ -51,7 +51,25 @@ describe TransactionsController do
         PaymentGateway.any_instance.stub(:create_charge)
 
         post :create, stripeToken: "tok_103OXi2MiUtVpB73G4i2I4CQ",
-          stripeEmpil: "user@example.com"
+          stripeEmail: "user@example.com"
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    describe "paying without credit card" do
+      it "creates a new order, not marked as paid" do
+        sign_in create(:user)
+        PaymentGateway.any_instance.stub(:create_charge)
+
+        expect{
+          post :create
+        }.to change(Order, :count).by(1)
+        expect(Order.last.paid).to be_false
+      end
+
+      it "redirects to the root path" do
+        sign_in create(:user)
+        post :create
         expect(response).to redirect_to root_path
       end
     end
@@ -63,7 +81,7 @@ describe TransactionsController do
 
         sign_in create(:user)
         post :create, stripeToken: "bad token",
-          stripeEmpil: "user@example.com"
+          stripeEmail: "user@example.com"
         expect(response).to redirect_to new_transaction_path
       end
 
@@ -74,7 +92,7 @@ describe TransactionsController do
         sign_in create(:user)
         expect {
           post :create, stripeToken: "bad token",
-          stripeEmpil: "user@example.com"
+          stripeEmail: "user@example.com"
         }.not_to change(Order, :count)
       end
     end

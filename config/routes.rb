@@ -16,7 +16,7 @@ DinnerDash::Application.routes.draw do
   resources :transactions, only: [:new, :create]
   resource :dashboard, only: [:show]
 
-  resources :orders do
+  resources :orders, only: [:edit, :update] do
     patch 'cancel', on: :member
     patch 'paid', on: :member
     patch 'complete', on: :member
