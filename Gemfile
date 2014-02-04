@@ -15,6 +15,7 @@ gem 'pg'
 gem 'stripe', git: "https://github.com/stripe/stripe-ruby"
 gem "paperclip", "~> 3.5"
 gem 'simple_form'
+gem 'will_paginate', '~> 3.0'
 
 group :doc do
   gem 'sdoc', require: false
@@ -22,12 +23,12 @@ end
 
 group :test do
   gem 'faker'
-  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
 end
 
 group :development, :test do
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'capybara'

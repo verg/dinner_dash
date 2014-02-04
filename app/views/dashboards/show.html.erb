@@ -1,10 +1,11 @@
 <h1 id="admin-dashboard-title">Admin Dashboard</h1>
 
-<h3>Recent Orders</h2>
+<h3>Recent Orders</h3>
 <div class="dashboard-orders">
   <ul>
     <%= render partial: 'orders/edit_order_link', 
       collection: @dashboard.orders, as: :order %>
+    <%= will_paginate @dashboard.orders, param_name: :orders_page %>
   </ul>
 </div>
 

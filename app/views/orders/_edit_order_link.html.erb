@@ -5,7 +5,7 @@
     </span>
     <span class='order-status'>Status: <%= order.status.capitalize %></span>
     <span class='order-date-time'>
-      <%= order.created_at.to_time.strftime("%l:%M %P - %B %e, %Y") %>
+      <%= order.created_at.to_time.strftime("%l:%M %P - %b %e") %>
     </span>
 
     <%= link_to("Edit", edit_order_path(order),

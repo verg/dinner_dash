@@ -88,7 +88,6 @@ feature "admin dashboard" do
   scenario "viewing orders" do
     Order.destroy_all
     order = create(:order)
-    total_price = order.total_price
     quantity = order.line_items.reduce(0) {|sum, item| sum + item.quantity }
 
     sign_in
@@ -114,18 +113,8 @@ feature "admin dashboard" do
   #   the total number of orders by status
   # filter orders to display by status type (for statuses "ordered", "paid", "cancelled", "completed")
   # For each item on the order:
-  #   Name with link to item page
-  # Quantity
-  # Price
-  # Line item subtotal
-  # Total for the order
-  # Status of the order
-  # Update an individual order
   # View and edit orders; may change quantity or remove items from orders with the status of pending or paid
-  # Change the status of an order according to the rules as outlined above
-  #
   # NOt allowed to modify and personal data aside from their own
-  #
 end
 
 def sign_in(admin = create(:admin, password: "password"))
