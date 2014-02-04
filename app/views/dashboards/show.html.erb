@@ -1,9 +1,15 @@
 <h1 id="admin-dashboard-title">Admin Dashboard</h1>
 
 <h3>Recent Orders</h3>
+<h5>Filter by Status:
+<%= link_to "Ordered", dashboard_path(order_status: :ordered)  %>
+<%= link_to "Paid", dashboard_path(order_status: :paid) %>
+<%= link_to "Canceled", dashboard_path(order_status: :canceled) %>
+<%= link_to "Completed", dashboard_path(order_status: :complete) %>
+</h5>
 <div class="dashboard-orders">
   <ul>
-    <%= render partial: 'orders/edit_order_link', 
+    <%= render partial: 'orders/edit_order_link',
       collection: @dashboard.orders, as: :order %>
     <%= will_paginate @dashboard.orders, param_name: :orders_page %>
   </ul>
@@ -30,4 +36,3 @@
 
 <%= link_to "Create New Menu Item", new_product_path, id: 'new-product-link'%>
 <%= link_to "Create New Menu Category", new_category_path, id: 'new-category-link'%>
-

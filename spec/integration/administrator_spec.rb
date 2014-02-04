@@ -108,13 +108,6 @@ feature "admin dashboard" do
     find(".edit-order-link").click
     expect(find(".quantity-input").value).to match (quantity + 1).to_s
   end
-
-  # See a listing of all orders with:
-  #   the total number of orders by status
-  # filter orders to display by status type (for statuses "ordered", "paid", "cancelled", "completed")
-  # For each item on the order:
-  # View and edit orders; may change quantity or remove items from orders with the status of pending or paid
-  # NOt allowed to modify and personal data aside from their own
 end
 
 def sign_in(admin = create(:admin, password: "password"))

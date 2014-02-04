@@ -39,6 +39,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.query_by_status(status)
+    status = status.to_sym
     case status
     when :canceled
       where(canceled: true)
