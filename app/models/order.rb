@@ -38,9 +38,18 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def update_finalized_timestamp
-    if canceled_changed? || complete_changed?
-      touch :finalized_at
+  def self.query_by_status(status)
+    case status
+    when :canceled
+      where(canceled: true)
+    when :complete
+      where(complete: true, canceled: false)
+    when :paid
+      where(paid: true, complete: false, canceled: false)
+    when :ordered
+      where(paid: false, complete: false, canceled: false)
+    else
+      raise ArgumentError, "#{status.capitalize} is not a valid status."
     end
   end
 
@@ -50,5 +59,13 @@ class Order < ActiveRecord::Base
 
   def user_email
     user.email
+  end
+
+  private
+
+  def update_finalized_timestamp
+    if canceled_changed? || complete_changed?
+      touch :finalized_at
+    end
   end
 end
