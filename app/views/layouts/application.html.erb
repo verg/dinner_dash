@@ -14,6 +14,9 @@
   <%= render 'devise/menu/login_items' %>
   <%= render 'shared/user_menu' %>
 </ul>
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
 <%= yield %>
 
 </body>

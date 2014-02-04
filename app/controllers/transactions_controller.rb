@@ -17,6 +17,7 @@ class TransactionsController < ApplicationController
       create_order
     end
 
+    flash[:notice] = "Thanks for your order."
     redirect_to root_path
 
   rescue PaymentGateway::CardError => e
