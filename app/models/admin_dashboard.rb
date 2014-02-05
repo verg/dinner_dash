@@ -14,9 +14,9 @@ class AdminDashboard
 
   def order_query
     if @order_status
-      Order.query_by_status(@order_status).paginate(pagination_params)
+      Order.query_by_status(@order_status).order("created_at DESC").paginate(pagination_params)
     else
-      Order.paginate(pagination_params)
+      Order.order("created_at DESC").paginate(pagination_params)
     end
   end
 
