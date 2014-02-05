@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Order do
   it { should belong_to(:user) }
   it { should have_many(:line_items) }
+  it { should have_one(:transaction) }
 
   describe ".create_from_cart" do
     let(:food) { create(:product, price_cents: 350) }

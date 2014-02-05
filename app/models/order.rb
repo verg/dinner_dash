@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   has_many :line_items
   belongs_to :user
+  has_one :transaction
   accepts_nested_attributes_for :line_items
 
   after_save :update_finalized_timestamp

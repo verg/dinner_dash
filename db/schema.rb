@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140203201957) do
+ActiveRecord::Schema.define(version: 20140205223945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,16 @@ ActiveRecord::Schema.define(version: 20140203201957) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.boolean  "available",          default: true
+  end
+
+  create_table "transactions", force: true do |t|
+    t.string   "vendor"
+    t.string   "external_id"
+    t.string   "last_four"
+    t.string   "card_type"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
