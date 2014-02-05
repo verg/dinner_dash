@@ -11,12 +11,15 @@
     <%= link_to("Edit", edit_order_path(order),
                 class: 'edit-order-link', id: "order-#{order.id}-link") %>
 
-    <%= link_to_unless order.canceled?,
-                "Cancel", cancel_order_path(order), method: :patch %>
-    <%= link_to_unless order.paid?,
-                "Mark Paid", paid_order_path(order), method: :patch%>
+    <% unless order.canceled? %>
+      <%= button_to "Cancel", cancel_order_path(order), method: :patch %>
+    <% end %>
+
+    <% unless order.paid? %>
+      <%= button_to "Mark Paid", paid_order_path(order), method: :patch%>
+    <% end %>
 
     <% unless order.completed? || order.canceled? %>
-      <%= link_to "Mark Complete", complete_order_path(order), method: :patch %>
+      <%= button_to "Mark Complete", complete_order_path(order), method: :patch %>
     <% end %>
 </li>
