@@ -1,7 +1,6 @@
-
 <ul>
   <%= render @presenter.categories %>
 </ul>
 <ul>
-  <%= render @presenter.products %>
+  <%= render "tiles", products: @presenter.products, columns: 3 %>
 </ul>

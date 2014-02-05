@@ -1,0 +1,19 @@
+<div class="product tiles">
+  <% products.in_groups_of(columns, false) do |row| %>
+    <% row.each do |product| %>
+      <div id="<%= product.title.parameterize %>">
+        <div class="left">
+          <%= image_tag product.photo.url(:small), class: "left" %>
+        </div>
+        <div class="right">
+          <span class='product-title'><%= product.title %></span>
+          <span class='product-price'><%= product.price %></span>
+          <%= form_for :line_item, url: line_items_path(product_id: product.id) do |f| %>
+            <%= f.text_field :quantity, class: "quantity-input", value: 1 %>
+            <%= f.submit "Add to Cart", class: "add-cart-button" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

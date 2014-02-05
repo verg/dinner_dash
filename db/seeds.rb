@@ -13,16 +13,23 @@ unless Rails.env.production?
   soups = Category.create!(name: "Soups")
   appetizers = Category.create!(name: "Appetizers")
 
-  entrees.products.create!(title: "Mapo Tofu", price_cents: 899, display_rank: 3)
-  drinks.products.create!(title: "Jasmine Tea", price_cents: 150, display_rank: 6)
-  appetizers.products.create!(title: "Dan Dan Noodles", price_cents: 499, display_rank: 5)
+  photo = File.open(Rails.root + 'spec/fixtures/soup_image.jpeg')
+  entrees.products.create!(title: "Mapo Tofu", price_cents: 899, display_rank: 3, photo: photo)
+  drinks.products.create!(title: "Jasmine Tea", price_cents: 150, display_rank: 6, photo: photo)
+  appetizers.products.create!(title: "Dan Dan Noodles", price_cents: 499, display_rank: 5, photo: photo)
 
-  hot_pot = Product.create!(title: "Hot Pot", price_cents: 1699, display_rank: 3)
+  hot_pot = Product.create!(title: "Hot Pot", price_cents: 1699, display_rank: 3, photo: photo)
   entrees.products << hot_pot
   soups.products << hot_pot
 
-  User.create!(firstname: "bob", lastname: "user",
-               email: "user@example.com", password: "password")
+user_email = "user@example.com"
+  unless User.find_by(email: user_email)
+    User.create!(firstname: "bob", lastname: "user", email: user_email,
+                 password: "password")
+  end
 
-  Admin.create!(email: "admin@example.com", password: "password")
+ admin_email = "admin@example.com"
+  unless Admin.find_by(email: admin_email)
+    Admin.create!(email: admin_email, password: "password")
+  end
 end
