@@ -45,21 +45,34 @@ describe PaymentGateway do
   end
 
   describe "#create_charge" do
-    it "does something" do
-      Rails.configuration.stripe[:default_currency] = "usd"
-      amount = 499
-      customer_id = 1231233
-      description = "order 1034233"
+
+    let(:amount) { 499 }
+    let(:customer_id) { 1231233 }
+    let(:gateway) { PaymentGateway.new(charge_gateway: FakeStripe) }
+    let(:order) { double("Order", id: 1) }
+    let(:card) { double("card", last4: "8231", type: "Visa") }
+    let(:charge) { double("fake charge", id: "xyz", card: card) }
+    before { Rails.configuration.stripe[:default_currency] = "usd" }
+
+    it "sends a charge to the payment gateway" do
+      order_description = "Order: #{order.id}"
+      FakeStripe.stub(:create).and_return(charge)
 
       FakeStripe.should_receive(:create).with(
         customer: customer_id,
         amount: amount,
-        description: description,
+        description: order_description,
         currency: "usd"
       )
 
-      gateway = PaymentGateway.new(charge_gateway: FakeStripe)
-      gateway.create_charge(customer_id, amount, description)
+      gateway.create_charge(customer_id, amount, order)
+    end
+
+    it "creates a Transaction object" do
+      FakeStripe.stub(:create).and_return(charge)
+      expect {
+        gateway.create_charge(customer_id, amount, order)
+      }.to change(Transaction, :count).by(1)
     end
   end
 end

@@ -38,9 +38,11 @@ describe TransactionsController do
         price = 500
         sign_in create(:user, stripe_customer_id: "id")
         @controller.current_cart.stub(:total_price_cents).and_return(price)
+        order = double("order", update_attributes: nil, save: nil)
+        Order.stub(:create_from_cart).and_return(order)
 
         PaymentGateway.any_instance.should_receive(:create_charge).
-          with("id", price, /Order: \d+/)
+          with("id", price, order)
 
         post :create, stripeToken: "tok_103OXi2MiUtVpB73G4i2I4CQ",
           stripeEmail: "user@example.com"

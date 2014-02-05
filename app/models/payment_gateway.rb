@@ -7,16 +7,15 @@ class PaymentGateway
     @charge_gateway = opts.fetch(:charge_gateway) { Stripe::Charge }
   end
 
-  def create_charge(customer_id, amount, description, currency=nil)
-    currency = default_currency unless currency
-
+  def create_charge(customer_id, amount, order, currency=default_currency)
     begin
-      @charge_gateway.create(
+      charge = @charge_gateway.create(
         customer: customer_id,
         amount: amount,
-        description: description,
+        description: description_for(order),
         currency: currency
       )
+      return persist_transaction(charge, order)
     rescue Stripe::InvalidRequestError => e
       raise PaymentGateway::CardError, e.message
     end
@@ -47,5 +46,18 @@ class PaymentGateway
   def persist_customer_id(user, customer_id, cust_id_attr=:stripe_customer_id)
     user[cust_id_attr] = customer_id
     user.save
+  end
+
+  def persist_transaction(charge, order)
+    Transaction.create!( order_id: order.id,
+                         vendor: "stripe",
+                         external_id: charge.id,
+                         last_four: charge.card.last4,
+                         card_type: charge.card.type
+                       )
+  end
+
+  def description_for(order)
+    "Order: #{order.id}"
   end
 end

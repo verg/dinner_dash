@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
     if paid_with_card?
       customer_id = get_customer_id_from_payment_gateway
       order = create_order
-      payment_gateway.create_charge(customer_id, amount_in_cents, description_for(order))
+      payment_gateway.create_charge( customer_id, amount_in_cents, order )
       set_order_status_to_paid(order)
     else
       create_order
@@ -54,10 +54,6 @@ class TransactionsController < ApplicationController
 
   def create_order
     Order.create_from_cart(current_cart)
-  end
-
-  def description_for(order)
-    "Order: #{order.id}"
   end
 
   def amount_in_cents
