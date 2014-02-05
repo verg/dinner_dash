@@ -49,10 +49,6 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:complete, :paid, :canceled)
   end
 
-  def update_line_item_attributes
-    [line_item_ids, line_item_attributes]
-  end
-
   def line_item_ids
     line_item_params.map { |line_item| line_item[:id] }
   end
@@ -62,7 +58,9 @@ class OrdersController < ApplicationController
   end
 
   def line_item_params
-    @line_item_attributes ||= params[:order][:line_items_attributes].values
+    @line_item_params ||= params.require(:order).permit(
+      :line_items_attributes => [:quantity, :id]
+    )[:line_items_attributes].values
   end
 
   def user_id
