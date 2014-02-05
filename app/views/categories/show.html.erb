@@ -1,5 +1,5 @@
 <%= render "shared/cart_link" %>
 
 <ul>
-  <%= render "tiles", products: @presenter.products, columns: 3 %>
+  <%= render_tiled(@presenter.products) %>
 </ul>
