@@ -1,0 +1,14 @@
+Hey <%= @user.firstname %>,
+
+Here's a receipt for your recent @order:
+
+@order Id: <%= @order.id %>
+Date: <%= @order.created_at.to_time.strftime("%B %e, %Y - %l:%M %P") %>
+Billed to: <%= @user.full_name %>
+
+Items:
+<%= @order.line_items.each do |item| %>
+  <%= item.quantity %> <%= item.product_title %> - $<%= item.total_price %>
+<% end %>
+-----------------
+Total: $<%= @order.total_price %>

@@ -32,4 +32,5 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'capybara'
+  gem 'email_spec'
 end
