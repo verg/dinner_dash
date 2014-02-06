@@ -1,7 +1,7 @@
-class TransactionReceipt < ActionMailer::Base
+class TransactionMailer < ActionMailer::Base
   default from: "from@example.com"
 
-  def transaction_receipt(user, order)
+  def receipt(user, order)
     @user = user
     @order = order
 
