@@ -16,6 +16,7 @@ gem 'stripe', git: "https://github.com/stripe/stripe-ruby"
 gem "paperclip", "~> 3.5"
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
+gem 'sidekiq'
 
 group :doc do
   gem 'sdoc', require: false
