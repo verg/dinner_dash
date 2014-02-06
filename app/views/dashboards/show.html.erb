@@ -30,8 +30,8 @@
     <%= render partial: 'product_links',
       collection: @dashboard.products, as: :product %>
   </ul>
-  <%= link_to "View Retired Items", retired_products_path, 
-    id: "retired-products-link"%>
+  <%= link_to "View Retired Items", retired_products_path,
+    id: "retired-products-link" %>
 </div>
 
 <%= link_to "Create New Menu Item", new_product_path, id: 'new-product-link'%>

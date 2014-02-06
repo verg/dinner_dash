@@ -17,6 +17,7 @@ gem "paperclip", "~> 3.5"
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
 gem 'sidekiq'
+gem 'textacular', '~> 3.0'
 
 group :doc do
   gem 'sdoc', require: false

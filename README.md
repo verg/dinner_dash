@@ -2,3 +2,5 @@ Rails resturant ordering platform, loosly based on the project idea from [Jumpst
 
 Uses Sidekiq to send mail asynchronously. Start with:
 `bundle exec sidekiq`
+
+Require postgres as the db to take advantage of full text search.
