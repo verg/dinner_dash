@@ -114,5 +114,27 @@ describe Order do
         expect(Order.query_by_status(:ordered)).to eq [ordered]
       end
     end
+
+    describe ".status_query_args" do
+      it "returns arguments for performing a status query" do
+        expect(Order.status_query_args(:canceled)).to eq({ canceled: true })
+
+        expect(Order.status_query_args(:complete)).to eq(
+          { complete: true, canceled: false }
+        )
+
+        expect(Order.status_query_args(:paid)).to eq(
+          { paid: true, complete: false, canceled: false }
+        )
+
+        expect(Order.status_query_args(:ordered)).to eq(
+          { paid: false, complete: false, canceled: false }
+        )
+
+        expect{
+          Order.status_query_args(:not_a_status)
+        }.to raise_error(ArgumentError)
+      end
+    end
   end
 end

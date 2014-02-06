@@ -40,16 +40,20 @@ class Order < ActiveRecord::Base
   end
 
   def self.query_by_status(status)
+    where(self.status_query_args(status))
+  end
+
+  def self.status_query_args(status)
     status = status.to_sym
     case status
     when :canceled
-      where(canceled: true)
+      { canceled: true }
     when :complete
-      where(complete: true, canceled: false)
+      { complete: true, canceled: false }
     when :paid
-      where(paid: true, complete: false, canceled: false)
+      { paid: true, complete: false, canceled: false }
     when :ordered
-      where(paid: false, complete: false, canceled: false)
+      { paid: false, complete: false, canceled: false  }
     else
       raise ArgumentError, "#{status.capitalize} is not a valid status."
     end
