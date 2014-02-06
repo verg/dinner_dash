@@ -7,6 +7,8 @@
     <span class='order-date-time'>
       <%= order.created_at.to_time.strftime("%l:%M %P - %b %e") %>
     </span>
+    <span class'order-user-name'><%= order.user_name %></span> |
+    <span class'order-user-email'><%= order.user_email %></span>
 
     <%= link_to("Edit", edit_order_path(order),
                 class: 'edit-order-link', id: "order-#{order.id}-link") %>
