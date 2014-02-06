@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+class EmailReceiptWorker; end
+
 describe TransactionsController do
   describe "GET #new" do
     it "displays the transaction form" do
@@ -16,6 +18,7 @@ describe TransactionsController do
   end
 
   describe "POST #create" do
+    before { EmailReceiptWorker.stub(:perform_async) }
     it "denies access for non-authenticated users" do
       not_signed_in = create(:user)
       post :create, user_id: not_signed_in
@@ -38,12 +41,23 @@ describe TransactionsController do
         price = 500
         sign_in create(:user, stripe_customer_id: "id")
         @controller.current_cart.stub(:total_price_cents).and_return(price)
-        order = double("order", update_attributes: nil, save: nil)
+        order = double("order", update_attributes: nil, save: nil, id: 1)
         Order.stub(:create_from_cart).and_return(order)
 
         PaymentGateway.any_instance.should_receive(:create_charge).
           with("id", price, order)
 
+        post :create, stripeToken: "tok_103OXi2MiUtVpB73G4i2I4CQ",
+          stripeEmail: "user@example.com"
+      end
+
+      it "queues a email receipt" do
+        sign_in user = create(:user, stripe_customer_id: "id")
+        PaymentGateway.any_instance.stub(:create_charge)
+        order = double("order", update_attributes: nil, save: nil, id: 1)
+        Order.stub(:create_from_cart).and_return(order)
+
+        EmailReceiptWorker.should_receive(:perform_async).with(user.id, order.id)
         post :create, stripeToken: "tok_103OXi2MiUtVpB73G4i2I4CQ",
           stripeEmail: "user@example.com"
       end

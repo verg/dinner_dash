@@ -13,6 +13,7 @@ class TransactionsController < ApplicationController
       order = create_order
       payment_gateway.create_charge( customer_id, amount_in_cents, order )
       set_order_status_to_paid(order)
+      EmailReceiptWorker.perform_async(current_user.id, order.id)
     else
       create_order
     end
