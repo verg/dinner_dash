@@ -3,6 +3,7 @@ require 'spec_helper'
 describe User do
   it { should have_one(:cart) }
   it { should have_many(:line_items) }
+  it { should have_many(:orders) }
 
   describe ".items_in_cart" do
     it "returns line items in a user's cart" do
