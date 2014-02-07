@@ -8,6 +8,6 @@ class DashboardsController < ApplicationController
   private
 
   def filter_orders_params
-    params.permit(:orders_page, :order_status)
+    params.permit(:orders_page, :order_status, :search_by_user_query)
   end
 end

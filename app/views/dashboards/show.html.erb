@@ -7,6 +7,7 @@
 <%= link_to "Canceled", dashboard_path(order_status: :canceled) %>
 <%= link_to "Completed", dashboard_path(order_status: :complete) %>
 </h5>
+<%= render partial: 'orders/search_form', locals: { path: dashboard_path } %>
 <div class="dashboard-orders">
   <ul>
     <%= render partial: 'orders/edit_order_link',
@@ -14,7 +15,6 @@
     <%= will_paginate @dashboard.orders, param_name: :orders_page %>
   </ul>
 </div>
-
 
 <div class="categories">
   <h3>Menu Categories</h3>

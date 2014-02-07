@@ -1,0 +1,6 @@
+<%= form_tag path, method: :get do %>
+  <p>Search Orders by customer name/email:
+    <%= text_field_tag :search_by_user_query, params[:search_by_user_query] %>
+    <%= submit_tag "Search" %>
+  </p>
+<% end %>

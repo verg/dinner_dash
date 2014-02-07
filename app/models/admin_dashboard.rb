@@ -4,23 +4,6 @@ class AdminDashboard
   def initialize(args={})
     @categories = Category.all
     @products = Product.available
-    @orders_page = args.fetch(:orders_page) { 1 }
-    @order_status = args.fetch(:order_status) { nil }
-    @orders_per_page = args.fetch(:orders_per_page) { 30 }
-    @orders = order_query
-  end
-
-  private
-
-  def order_query
-    if @order_status
-      Order.query_by_status(@order_status).order("created_at DESC").paginate(pagination_params)
-    else
-      Order.order("created_at DESC").paginate(pagination_params)
-    end
-  end
-
-  def pagination_params
-    { page: @orders_page, per_page: @orders_per_page }
+    @orders = OrderSearch.new.search(args)
   end
 end

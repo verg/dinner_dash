@@ -39,10 +39,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.query_by_status(status)
-    where(self.status_query_args(status))
-  end
-
   def self.status_query_args(status)
     status = status.to_sym
     case status

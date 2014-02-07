@@ -101,20 +101,6 @@ describe Order do
       }.not_to change(order, :finalized_at)
     end
 
-    describe ".query_by_status" do
-      it "returns records based on their status" do
-        canceled = create(:order, canceled: true, complete: true, paid: true)
-        complete = create(:order, complete: true, paid: true)
-        paid = create(:order, paid: true)
-        ordered = create(:order)
-
-        expect(Order.query_by_status(:canceled)).to eq [canceled]
-        expect(Order.query_by_status(:complete)).to eq [complete]
-        expect(Order.query_by_status(:paid)).to eq [paid]
-        expect(Order.query_by_status(:ordered)).to eq [ordered]
-      end
-    end
-
     describe ".status_query_args" do
       it "returns arguments for performing a status query" do
         expect(Order.status_query_args(:canceled)).to eq({ canceled: true })
