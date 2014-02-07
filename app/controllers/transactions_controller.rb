@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
       order = create_order
       payment_gateway.create_charge( customer_id, amount_in_cents, order )
       set_order_status_to_paid(order)
-      EmailReceiptWorker.perform_async(current_user.id, order.id)
+      mail_receipt(order)
     else
       create_order
     end
@@ -68,5 +68,9 @@ class TransactionsController < ApplicationController
 
   def destroy_cart
     current_cart.destroy
+  end
+
+  def mail_receipt(order)
+    EmailReceiptWorker.perform_async(current_user.id, order.id)
   end
 end
