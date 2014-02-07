@@ -16,7 +16,7 @@ class OrderSearch
 
   def query_conditions(search_term, status)
     args = {}
-    args = args.merge(user_id_args_for(search_term)) if search_term
+    args = args.merge(user_id_args_for(search_term)) if search_term.present?
     args = args.merge(status_query_args(status)) if status
     args
   end

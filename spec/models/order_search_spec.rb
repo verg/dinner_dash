@@ -24,6 +24,9 @@ describe OrderSearch do
       email_results = searcher.search(search_by_user_query: "funguy@gmail.com")
       expect(email_results).to include(bob_order)
       expect(email_results).not_to include(alice_order, other_order)
+
+      empty_search_returns_all_results = searcher.search(search_by_user_query: "")
+      expect(empty_search_returns_all_results).to include(bob_order, alice_order, other_order)
     end
 
     it "filters by status" do
