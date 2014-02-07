@@ -24,6 +24,20 @@ class ApplicationController < ActionController::Base
     guest_user
   end
 
+  def auth_user!
+    unless user_signed_in?
+      store_location
+      redirect_to new_user_session_path, alert: "You must sign in or register first."
+    end
+  end
+
+  protected
+
+  def after_sign_in_path_for(resource)
+    return_to = session.delete(:return_to)
+    return_to || root_path
+  end
+
   private
 
   def create_guest_user
@@ -52,4 +66,9 @@ class ApplicationController < ActionController::Base
   def destroy_old_carts
     Cart.where(user_id: current_user).destroy_all
   end
+
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
+
 end

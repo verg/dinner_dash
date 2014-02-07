@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :auth_user!
   after_filter :destroy_cart, only: [:create]
 
   def new

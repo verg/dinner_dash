@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :authenticate_user!, except: [:cancel, :paid, :complete, :edit, :update]
+  before_filter :auth_user!, except: [:cancel, :paid, :complete, :edit, :update]
   before_action :verify_correct_user, except: [:cancel, :paid, :complete, :edit, :update]
 
   before_action :authenticate_admin!, except: [:index, :show]
