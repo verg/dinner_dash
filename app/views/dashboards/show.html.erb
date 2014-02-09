@@ -16,23 +16,27 @@
   </ul>
 </div>
 
-<div class="categories">
-  <h3>Menu Categories</h3>
-  <ul>
-    <%= render @dashboard.categories %>
-  </ul>
-</div>
+<% cache(cache_key_for_categories) do %>
+  <div class="categories">
+    <h3>Menu Categories</h3>
+    <ul>
+      <%= render @dashboard.categories %>
+    </ul>
+  </div>
+<% end %>
 
-<div class="products">
-  <h3>Menu Items</h3>
+<% cache(cache_key_for_products) do %>
+  <div class="products">
+    <h3>Menu Items</h3>
 
-  <ul>
-    <%= render partial: 'product_links',
-      collection: @dashboard.products, as: :product %>
-  </ul>
-  <%= link_to "View Retired Items", retired_products_path,
-    id: "retired-products-link" %>
-</div>
+    <ul>
+      <%= render partial: 'product_links',
+        collection: @dashboard.products, as: :product %>
+    </ul>
+    <%= link_to "View Retired Items", retired_products_path,
+      id: "retired-products-link" %>
+  </div>
+<% end %>
 
 <%= link_to "Create New Menu Item", new_product_path, id: 'new-product-link'%>
 <%= link_to "Create New Menu Category", new_category_path, id: 'new-category-link'%>
