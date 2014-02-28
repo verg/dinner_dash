@@ -1,13 +1,13 @@
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Edit registration', edit_user_registration_path, id: "edit-registration-link") %>
-  </li>
-<% elsif admin_signed_in? %>
-  <li>
-  <%= link_to('Edit registration', edit_admin_registration_path, id: "edit-registration-link")  %>
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Register', new_user_registration_path, id: "user-registration-link")  %>
-  </li>
+  <% if user_signed_in? %>
+    <li>
+  <%= link_to('Edit Registration', edit_user_registration_path, id: "edit-registration-link") %>
+    </li>
+  <% elsif admin_signed_in? %>
+    <li>
+    <%= link_to('Edit Registration', edit_admin_registration_path, id: "edit-registration-link")  %>
+    </li>
+  <% else %>
+    <li>
+    <%= link_to('Register', new_user_registration_path, id: "user-registration-link")  %>
+    </li>
 <% end %>
