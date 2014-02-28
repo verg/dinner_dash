@@ -2,10 +2,14 @@
 
 <h3>Recent Orders</h3>
 <h5>Filter by Status:
-<%= link_to "Ordered", dashboard_path(order_status: :ordered)  %>
-<%= link_to "Paid", dashboard_path(order_status: :paid) %>
-<%= link_to "Canceled", dashboard_path(order_status: :canceled) %>
-<%= link_to "Completed", dashboard_path(order_status: :complete) %>
+  <%= link_to_unless(@dashboard.orders_filtered_by == :ordered, 
+                     "Ordered", dashboard_path(order_status: :ordered)) %>
+  <%= link_to_unless(@dashboard.orders_filtered_by == :paid, 
+                     "Paid", dashboard_path(order_status: :paid)) %>
+  <%= link_to_unless(@dashboard.orders_filtered_by == :canceled,
+                     "Canceled", dashboard_path(order_status: :canceled)) %>
+  <%= link_to_unless(@dashboard.orders_filtered_by == :complete, 
+                     "Completed", dashboard_path(order_status: :complete)) %>
 </h5>
 <%= render partial: 'orders/search_form', locals: { path: dashboard_path } %>
 <div class="dashboard-orders">
