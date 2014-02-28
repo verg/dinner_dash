@@ -8,4 +8,8 @@ class AdminDashboard
     filtered_by = args.fetch(:order_status) { :none }
     @orders_filtered_by = filtered_by.to_sym
   end
+
+  def has_order_filter?
+    @orders_filtered_by != :none
+  end
 end

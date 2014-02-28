@@ -26,10 +26,12 @@ describe AdminDashboard do
     it "can have a status" do
       dashboard = AdminDashboard.new(order_status: "paid")
       expect(dashboard.orders_filtered_by).to eq :paid
+      expect(dashboard.has_order_filter?).to be_true
     end
 
     it "defaults to no status" do
       expect(dashboard.orders_filtered_by).to eq :none
+      expect(dashboard.has_order_filter?).to be_false
     end
   end
 end

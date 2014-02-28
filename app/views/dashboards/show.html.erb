@@ -10,6 +10,9 @@
                      "Canceled", dashboard_path(order_status: :canceled)) %>
   <%= link_to_unless(@dashboard.orders_filtered_by == :complete, 
                      "Completed", dashboard_path(order_status: :complete)) %>
+  <% if @dashboard.has_order_filter? %>
+    <%= link_to "Clear filter", dashboard_path, class: "clear-order-filter" %>
+  <% end %>
 </h5>
 <%= render partial: 'orders/search_form', locals: { path: dashboard_path } %>
 <div class="dashboard-orders">
