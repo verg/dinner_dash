@@ -1,6 +1,20 @@
-<ul>
-  <%= render @cart.line_items %>
-  <li class='total-price'><%= number_to_currency(@cart.total_price) %></li>
-</ul>
-<%= link_to "Checkout", new_transaction_path(@cart.user), id: "checkout-link" %>
-
+<div class="cart">
+  <ul>
+    <% if @cart.line_items.any? %>
+      <div class="row">
+        <table class='table'>
+        <tr class="line-item-header">
+            <th class='hidden-xs'></th>
+            <th>Item</th>
+            <th class='product-price cart-header'>Price</th>
+            <th class='cart-header'>Qty</th>
+            <th class=''>Subtotal</th>
+        </ul>
+        <%= render @cart.line_items %>
+        </table>
+      </div>
+    <% end %>
+    <li class='total-price'><%= number_to_currency(@cart.total_price) %></li>
+  </ul>
+  <%= link_to "Checkout", new_transaction_path(@cart.user), id: "checkout-link" %>
+</div>

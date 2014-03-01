@@ -37,6 +37,24 @@ textarea {
     list-style-type: none;
   }
 }
+
+.cart {
+  li {
+    display: inline;
+    margin: 10px;
+  }
+  .line-item {
+    margin: 20px;
+    .photo {
+      max-width: 125px;
+      max-height: 125px;
+    }
+    .quantity {
+      width: 40px;
+    }
+  }
+}
+
 .product {
   text-align: center;
   margin-bottom: 25px;
