@@ -27,6 +27,12 @@ describe LineItem do
     expect(line_item.total_price).to eq Money.new(899*2, "USD")
   end
 
+  it "has a product_price" do
+    product = build_stubbed(:product, price_cents: 899, title: "Foodstuff")
+    line_item = build_stubbed(:line_item, product: product, quantity: 2)
+    expect(line_item.product_price).to eq Money.new(899, "USD")
+  end
+
   describe "#increment_quantity" do
     it 'increments the quanity' do
       line_item = create(:line_item)
