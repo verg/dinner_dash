@@ -1,7 +1,7 @@
 <li class='line-item' id='<%= line_item.product_title.parameterize  %>'>
   <ul>
     <li class='item-price'> <%= number_to_currency(line_item.total_price) %> </li>
-    <li class='product'> <%= line_item.product_title %> </li>
+    <li class='product-title'> <%= line_item.product_title %> </li>
     <%= form_for line_item do |f| %>
       <li><%= f.text_field :quantity, class: "quantity", value: line_item.quantity %></li>
       <li><%= f.submit "Update", class: 'update-quantity-button' %></li>
