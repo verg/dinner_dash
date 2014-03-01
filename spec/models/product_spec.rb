@@ -45,6 +45,11 @@ describe Product do
   describe "photo" do
     it { should validate_attachment_content_type(:photo).
          allowing('image/png', 'image/jpg', 'image/gif') }
+
+    it "has a helper methods to access photots" do
+      product = build(:product)
+      expect(product.small_photo).to eq product.photo.url(:small)
+    end
   end
 
   describe "available" do

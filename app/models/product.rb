@@ -19,6 +19,10 @@ class Product < ActiveRecord::Base
       { :content_type => ["image/jpeg", "image/jpg", "image/gif", "image/png"] },
       :if => :photo_attached?
 
+  def small_photo
+    photo.url(:small)
+  end
+
   def self.available
     where(available: true).order(:display_rank)
   end

@@ -19,6 +19,10 @@ class LineItem < ActiveRecord::Base
     product.description
   end
 
+  def small_product_photo
+    product.small_photo
+  end
+
   def total_price
     product.price * quantity
   end

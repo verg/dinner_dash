@@ -11,6 +11,11 @@ describe LineItem do
     expect(line_item.product_title).to eq line_item.product.title
   end
 
+  it "has a product photo" do
+    line_item = create(:line_item)
+    expect(line_item.small_product_photo).to eq line_item.product.small_photo
+  end
+
   it "has a product_description" do
     line_item = create(:line_item)
     expect(line_item.product_description).to eq line_item.product.description
