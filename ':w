@@ -1,0 +1,11 @@
+<% products.each do |product| %>
+  <div class="col-6 col-sm-6 col-lg-4" id="<%= product.title.parameterize %>">
+    <%= image_tag product.photo.url(:small) %>
+    <span class='product-title'><%= product.title %></span>
+    <span class='product-price'><%= product.price %></span>
+    <%= form_for :line_item, url: line_items_path(product_id: product.id) do |f| %>
+      <%= f.text_field :quantity, class: "quantity-input", value: 1 %>
+      <%= f.submit "Add to Cart", class: "add-cart-button" %>
+    <% end %>
+  </div>
+<% end %>
