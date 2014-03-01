@@ -1,10 +1,14 @@
 <% cache(cache_key_for_categories) do %>
-  <ul>
-    <%= render @presenter.categories %>
-  </ul>
+  <div id="category-links" class="col-sm-3 col-md-2 sidebar">
+    <ul>
+      <%= render @presenter.categories %>
+    </ul>
+  </div>
 <% end %>
 <% cache(cache_key_for_products) do %>
-  <ul>
-    <%= render_tiled(@presenter.products) %>
-  </ul>
+  <div class="products col-xs-12 col-sm-9">
+    <ul>
+      <%= render 'products/tiles', products: @presenter.products %>
+    </ul>
+  </div>
 <% end %>

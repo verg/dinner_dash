@@ -17,6 +17,7 @@ textarea {
 }
 
 #header-links {
+  margin-bottom: 40px;
   li {
     margin: 0px 5px;
     display: inline;
@@ -24,6 +25,21 @@ textarea {
   #auth-links {
     float: right;
     margin-right: 20px;
+  }
+}
+
+.product {
+  text-align: center;
+  margin-bottom: 25px;
+
+  .product-image {
+    padding: 6px 0px;
+  }
+
+  .add-product-to-cart {
+    .product-quantity-input {
+      width: 22px;
+    }
   }
 }
 

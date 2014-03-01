@@ -1,7 +1,7 @@
 <%= render "shared/cart_link" %>
 
 <% cache(cache_key_for_products) do %>
-<ul>
-  <%= render_tiled(@presenter.products) %>
-</ul>
+  <ul>
+    <%= render 'products/tiles', products: @presenter.products %>
+  </ul>
 <% end %>
