@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.for_user(user_or_user_id)
-    where(user_id: user_or_user_id.to_param)
+    where(user_id: user_or_user_id.to_param).order("created_at DESC")
   end
 
   def completed?
