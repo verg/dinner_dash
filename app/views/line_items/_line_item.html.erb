@@ -1,14 +1,14 @@
 <div class="row">
   <tr class="table line-item" id='<%= line_item.product_title.parameterize  %>'>
-    <td class='hidden-xs'><%= image_tag line_item.small_product_photo %></td>
-    <td class='product-title'> <%= line_item.product_title %> </td>
-    <td class='product-price'> <%= number_to_currency(line_item.product_price) %> </td>
-    <td class=''><%= form_for line_item do |f| %>
+    <td class='hidden-xs line-item-data'><%= image_tag line_item.small_product_photo %></td>
+    <td class='product-title line-item-data'> <%= line_item.product_title %> </td>
+    <td class='product-price line-item-data'> <%= number_to_currency(line_item.product_price) %> </td>
+    <td class='line-item-data'><%= form_for line_item do |f| %>
       <%= f.text_field :quantity, class: "quantity", value: line_item.quantity %>
       <%= f.submit "Update", class: 'update-quantity-button' %>
     <% end %></td>
-    <td class='item-total'> <%= number_to_currency(line_item.total_price) %> </td>
-    <td>
+    <td class='item-total line-item-data'> <%= number_to_currency(line_item.total_price) %> </td>
+    <td class='line-item-data'>
     <%= button_to "Remove", line_item_path(line_item), method: :delete,
         class: 'remove-from-cart' %>
     </td>

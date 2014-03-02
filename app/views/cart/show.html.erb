@@ -1,20 +1,22 @@
-<div class="cart">
-  <ul>
-    <% if @cart.line_items.any? %>
-      <div class="row">
-        <table class='table'>
+<div class="cart row col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+  <% if @cart.line_items.any? %>
+    <div>
+      <table class='table'>
         <tr class="line-item-header">
-            <th class='hidden-xs'></th>
-            <th>Item</th>
-            <th class='product-price cart-header'>Price</th>
-            <th class='cart-header'>Qty</th>
-            <th class=''>Subtotal</th>
-        </ul>
-        <%= render @cart.line_items %>
-        </table>
-      </div>
-    <% end %>
-    <li class='total-price'><%= number_to_currency(@cart.total_price) %></li>
-  </ul>
-  <%= link_to "Checkout", new_transaction_path(@cart.user), id: "checkout-link" %>
+          <th class='hidden-xs col-lg-offset-4'></th>
+          <th>Item</th>
+          <th class='product-price cart-header'>Price</th>
+          <th class='cart-header'>Qty</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      <%= render @cart.line_items %>
+      </table>
+    </div>
+  <% end %>
+
+  <div class='checkout col-lg-offset-10 col-md-offset-10 col-sm-offset-10'>
+    <h4>Total: <%= number_to_currency(@cart.total_price) %></h4>
+    <h4><%= link_to "Checkout", new_transaction_path(@cart.user), id: "checkout-link" %></h4>
+  </div>
 </div>
