@@ -1,5 +1,5 @@
 class Cart < ActiveRecord::Base
-  has_many :line_items
+  has_many :line_items, order: 'created_at DESC'
   belongs_to :user
 
   def add_product(product_or_product_id, quantity=1)
