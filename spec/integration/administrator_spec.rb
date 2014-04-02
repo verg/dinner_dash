@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 feature "administrators" do
+  before(:all) { find("#sign-out-link").click if page.has_css?("#sign-out-link") }
   scenario "creating item listsings includings a name, description, price and photo" do
-    sign_in
+    sign_in_admin
     expect(page).to have_content "Dashboard"
     page.find("#new-product-link").click
     fill_in "Title", with: "Pho"
@@ -15,7 +16,7 @@ feature "administrators" do
   end
 
   scenario "creating categories" do
-    sign_in
+    sign_in_admin
     create_category("Apps")
     expect(page).to have_content "Apps"
   end
@@ -29,7 +30,7 @@ feature "administrators" do
   scenario "modifing an existing item" do
     tea = create(:product, title: "Tea", price_cents: 299)
     drinks = create(:category, name: "Drinks")
-    sign_in
+    sign_in_admin
 
     find("#edit_product_#{tea.id}_link").click
     fill_in "Title", with: "Jasmine Tea"
@@ -60,7 +61,7 @@ feature "administrators" do
     tea = create(:product, title: "Tea", price_cents: 899)
 
     drinks = create(:category, name: "Drinks")
-    sign_in
+    sign_in_admin
 
     find("#edit_category_#{drinks.id}_link").click
     find(:css, "#category_product_ids_#{tea.id}").set(true)
@@ -77,7 +78,7 @@ feature "administrators" do
   end
 
   scenario "logging out" do
-    sign_in
+    sign_in_admin
     page.find("#sign-out-link").click
     visit dashboard_path
     expect(page).not_to have_content "Dashboard"
@@ -85,20 +86,22 @@ feature "administrators" do
 end
 
 feature "admin dashboard" do
+  before(:all) { find("#sign-out-link").click if page.has_css?("#sign-out-link") }
+  before { Order.destroy_all }
+
   scenario "viewing orders" do
-    Order.destroy_all
     order = create(:order)
     quantity = order.line_items.reduce(0) {|sum, item| sum + item.quantity }
 
-    sign_in
+    sign_in_admin
     expect(page).to have_css("#order-#{order.id}-link")
-    click_link "Mark Paid"
+    find("#mark-paid-button").click
     expect(page).to have_content("Status: Paid")
 
-    click_link "Mark Complete"
+    find("#mark-complete-button").click
     expect(page).to have_content("Status: Complete")
 
-    click_link "Cancel"
+    find("#cancel-button").click
     expect(page).to have_content("Status: Canceled")
 
     find(".edit-order-link").click
@@ -110,7 +113,7 @@ feature "admin dashboard" do
   end
 end
 
-def sign_in(admin = create(:admin, password: "password"))
+def sign_in_admin(admin = create(:admin, password: "password"))
   visit new_admin_session_path
   fill_in "Email",  with: admin.email
   fill_in "Password",  with: "password"

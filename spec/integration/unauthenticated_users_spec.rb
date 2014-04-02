@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 feature "Unauthenticated users" do
+  after(:all) { sign_out }
   scenario "browses all products" do
     create(:product, title: "Mapo Tofu", price_cents: 899)
     visit root_path
@@ -27,10 +28,10 @@ feature "Unauthenticated users" do
     expect(page.find(".cart-link").text).to include "$17.98"
     visit_cart
 
-    expect(page).to have_css ".product", text: "Mapo Tofu"
-    expect(page).to have_css ".item-price", text: "$17.98"
+    expect(page).to have_css ".product-title", text: "Mapo Tofu"
+    expect(page).to have_css ".item-total", text: "$17.98"
     expect(page.find(".quantity").value).to eq  "2"
-    expect(page).to have_css ".total-price", text: "$17.98"
+    expect(page).to have_css "#total-price", text: "$17.98"
   end
 
   scenario "remove product from cart" do
@@ -106,7 +107,7 @@ end
 
 def add_css_id_to_cart(id, qty=1)
   item = find(id)
-  item.find('.quantity-input').set(qty.to_s) if qty > 1
+  item.find('#line_item_quantity').set(qty.to_s) if qty > 1
   item.find(".add-cart-button").click
 end
 

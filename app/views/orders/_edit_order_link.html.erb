@@ -14,14 +14,14 @@
                 class: 'edit-order-link', id: "order-#{order.id}-link") %>
 
     <% unless order.canceled? %>
-      <%= button_to "Cancel", cancel_order_path(order), method: :patch %>
+      <%= button_to "Cancel", cancel_order_path(order), method: :patch, id: "cancel-button" %>
     <% end %>
 
     <% unless order.paid? %>
-      <%= button_to "Mark Paid", paid_order_path(order), method: :patch%>
+      <%= button_to "Mark Paid", paid_order_path(order), method: :patch, id: "mark-paid-button"%>
     <% end %>
 
     <% unless order.completed? || order.canceled? %>
-      <%= button_to "Mark Complete", complete_order_path(order), method: :patch %>
+      <%= button_to "Mark Complete", complete_order_path(order), method: :patch, id: "mark-complete-button" %>
     <% end %>
 </li>
